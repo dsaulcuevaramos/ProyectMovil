@@ -1,4 +1,4 @@
-package com.codedev.proyectmovil;
+package com.codedev.proyectmovil.Activities;
 
 import android.os.Bundle;
 
@@ -7,6 +7,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.codedev.proyectmovil.R;
 
 public class MainActivity extends AppCompatActivity {
 
