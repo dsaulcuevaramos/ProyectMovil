@@ -11,6 +11,8 @@
     <string name="usuario_hint_contrasenia">Contraseña</string>
     <string name="usuario_hint_correo">Correo</string>
     <string name="usuario_hint_nombre">Nombre</string>
+    <string name="usuario_opc_agregar">Agregar usuario</string>
+    <string name="usuario_opc_editar">Modificar usuario</string>
 
 
 </resources>
