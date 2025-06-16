@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">ProyectMovil</string>
 
-<!--    usuarios-->
+    <!--    usuarios-->
     <string name="usuario_show_nombre">Nombre</string>
     <string name="usuario_show_correo">correo@email.com</string>
     <string name="usuario_btn_editar">Editar</string>

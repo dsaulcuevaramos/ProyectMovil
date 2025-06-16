@@ -1,17 +1,17 @@
-package com.codedev.proyectmovil.Activities;
+package com.codedev.proyectmovil.Fragments;
 
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import androidx.activity.EdgeToEdge;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +24,7 @@ import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
-public class UsuarioAll extends AppCompatActivity {
+public class UsuarioAll extends Fragment {
     UsuarioDAO usuarioDAO;
     RecyclerView recyclerUsuarios;
     List<UsuarioModel> lista;
@@ -36,33 +36,35 @@ public class UsuarioAll extends AppCompatActivity {
     EditText edtContra;
     Button btnAgregar, btnGuardar;
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
-        setContentView(R.layout.usuario_activity);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
-        });
+    public UsuarioAll() {
+    }
 
-        usuarioDAO = new UsuarioDAO(this);
-        recyclerUsuarios = findViewById(R.id.recyclerUsuarios);
-        recyclerUsuarios.setLayoutManager(new LinearLayoutManager(this));
+    @Nullable
+    @Override
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.usuario_fragment_all, container, false);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        usuarioDAO = new UsuarioDAO(getContext());
+        recyclerUsuarios = view.findViewById(R.id.recyclerUsuarios);
+        recyclerUsuarios.setLayoutManager(new LinearLayoutManager(getContext()));
 
         lista = usuarioDAO.getUsuarios();
-        adapter = new UsuarioAdapter(this, lista, new UsuarioAdapter.OnItemClickListener() {
+        adapter = new UsuarioAdapter(getContext(), lista, new UsuarioAdapter.OnItemClickListener() { // Usa getContext()
 
             @Override
             public void onEditarClick(UsuarioModel usuario) {
-
                 mostrarDialogEditar(usuario);
             }
 
             @Override
             public void onEliminarClick(UsuarioModel usuario) {
-                new AlertDialog.Builder(UsuarioAll.this).setTitle("¿Eliminar usuario?").setMessage("¿Estás seguro de que quieres eliminar a " + usuario.getNombre() + "?").setPositiveButton("Sí", (dialog, which) -> {
+                new AlertDialog.Builder(requireContext()).setTitle("¿Eliminar usuario?").setMessage("¿Estás seguro de que quieres eliminar a " + usuario.getNombre() + "?").setPositiveButton("Sí", (dialog, which) -> {
                     eliminarUsuarioConRevertir(usuario);
                     recargarLista();
                 }).setNegativeButton("Cancelar", null).show();
@@ -70,7 +72,7 @@ public class UsuarioAll extends AppCompatActivity {
         });
         recyclerUsuarios.setAdapter(adapter);
 
-        btnAgregar = findViewById(R.id.btnAgregarUsuario);
+        btnAgregar = view.findViewById(R.id.btnAgregarUsuario);
         btnAgregar.setOnClickListener(v -> mostrarDialogNuevoUsuario());
     }
 
@@ -81,7 +83,7 @@ public class UsuarioAll extends AppCompatActivity {
     }
 
     private void mostrarDialogNuevoUsuario() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         View view = getLayoutInflater().inflate(R.layout.usuario_dialog, null);
         builder.setView(view);
 
@@ -100,18 +102,18 @@ public class UsuarioAll extends AppCompatActivity {
             String contra = edtContra.getText().toString().trim();
 
             if (!nombre.isEmpty() && !correo.isEmpty() && !contra.isEmpty()) {
-                UsuarioModel nuevo = new UsuarioModel(nombre,correo,contra,1);
+                UsuarioModel nuevo = new UsuarioModel(nombre, correo, contra, 1);
 
                 boolean insertado = usuarioDAO.addUsuario(nuevo);
                 if (insertado) {
-                    ToastUtil.show(this, "Usuario agregado", "success");
+                    ToastUtil.show(requireContext(), "Usuario agregado", "success");
                     recargarLista();
                     dialog.dismiss();
                 } else {
-                    ToastUtil.show(this, "Error al agregar", "danger");
+                    ToastUtil.show(requireContext(), "Error al agregar", "danger");
                 }
             } else {
-                ToastUtil.show(this, "Completa todos los campos", "danger");
+                ToastUtil.show(requireContext(), "Completa todos los campos", "danger");
             }
         });
 
@@ -119,7 +121,7 @@ public class UsuarioAll extends AppCompatActivity {
     }
 
     private void mostrarDialogEditar(UsuarioModel usuario) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
         View view = getLayoutInflater().inflate(R.layout.usuario_dialog, null);
         builder.setView(view);
 
@@ -147,10 +149,10 @@ public class UsuarioAll extends AppCompatActivity {
 
             boolean actualizado = usuarioDAO.updateUsuario(usuario);
             if (actualizado) {
-                ToastUtil.show(this, "Usuario actualizado", "success");
+                ToastUtil.show(requireContext(), "Usuario actualizado", "success");
                 recargarLista();
             } else {
-                ToastUtil.show(this, "Error al actualizar", "danger");
+                ToastUtil.show(requireContext(), "Error al actualizar", "danger");
             }
 
             dialog.dismiss();
@@ -163,11 +165,11 @@ public class UsuarioAll extends AppCompatActivity {
         usuarioDAO.deleteUsuario(usuario.getId());
         recargarLista();
 
-        Snackbar.make(findViewById(android.R.id.content), "Usuario eliminado", Snackbar.LENGTH_LONG).setAction("Deshacer", v -> {
+        Snackbar.make(requireView(), "Usuario eliminado", Snackbar.LENGTH_LONG).setAction("Deshacer", v -> {
             usuario.setEstado(1);
             usuarioDAO.updateUsuario(usuario);
             recargarLista();
-            ToastUtil.show(this, "Se recuperó el usuario", "success");
+            ToastUtil.show(requireContext(), "Se recuperó el usuario", "success"); // Usar requireContext()
         }).show();
     }
 }

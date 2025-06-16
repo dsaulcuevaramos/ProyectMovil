@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_usuarios"
+        android:icon="@drawable/outline_account_circle_24"
+        android:title="Usuarios" />
+
+    <item
+        android:id="@+id/navigation_asistencias"
+        android:icon="@drawable/outline_alarm_on_24"
+        android:title="Asistencias" />
+
+    <item
+        android:id="@+id/navigation_horario"
+        android:icon="@drawable/outline_asistencia"
+        android:title="Cursos" />
+
+    <item
+        android:id="@+id/navigation_perfil"
+        android:icon="@drawable/baseline_person"
+        android:title="Perfil" />
+</menu>

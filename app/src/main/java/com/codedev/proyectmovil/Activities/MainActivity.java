@@ -1,5 +1,6 @@
 package com.codedev.proyectmovil.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -24,9 +25,15 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        findViewById(R.id.btnPulsar).setOnClickListener(view -> {
+            presiona(view);
+        });
     }
 
-    public void presionar(View view){
-        ToastUtil.show(this,"Hola ISai","success");
+    public void presiona(View view){
+        ToastUtil.show(this,"Hola ISaisssssssssssssss","success");
+        Intent i = new Intent(this,NavitationMenu.class);
+
+        startActivity(i);
     }
 }

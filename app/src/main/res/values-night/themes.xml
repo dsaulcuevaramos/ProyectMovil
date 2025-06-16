@@ -1,14 +1,23 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.ProyectMovil" parent="Theme.Material3.DayNight.NoActionBar">
-        <item name="colorPrimary">#40C4FF</item> <!-- azul celeste -->
-        <item name="colorPrimaryVariant">#00B0FF</item>
-        <item name="colorOnPrimary">#000000</item>
-        <item name="colorSecondary">#82B1FF</item>
-        <item name="colorOnSecondary">#000000</item>
-        <item name="android:windowBackground">#121212</item>
-        <item name="android:textColorPrimary">#FFFFFF</item>
-        <item name="android:textColorSecondary">#B0BEC5</item>
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorPrimaryVariant</item>
+        <item name="colorOnPrimary">@color/colorOnSurface</item>
+
+        <item name="colorSecondary">@color/colorSecondary</item>
+        <item name="colorOnSecondary">@color/colorOnSurface</item>
+
+        <item name="android:windowBackground">@color/windowBackground</item>
+        <item name="android:textColorPrimary">@color/textColorPrimary</item>
+        <item name="android:textColorSecondary">@color/textColorSecondary</item>
+
+        <item name="colorSurface">@color/colorSurface</item>
+        <item name="colorOnSurface">@color/colorOnSurface</item>
+
         <item name="cardViewStyle">@style/CardView.Dark</item>
+
+        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
+        <item name="android:navigationBarColor" tools:targetApi="l">@android:color/transparent</item>
     </style>
 </resources>
