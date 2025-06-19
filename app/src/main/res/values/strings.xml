@@ -1,3 +1,18 @@
 <resources>
     <string name="app_name">ProyectMovil</string>
+
+    <!--    usuarios-->
+    <string name="usuario_show_nombre">Nombre</string>
+    <string name="usuario_show_correo">correo@email.com</string>
+    <string name="usuario_btn_editar">Editar</string>
+    <string name="usuario_btn_eliminar">Eliminar</string>
+    <string name="usuario_btn_agregar">Agregar Usuario</string>
+    <string name="usuario_btn_guardar_form">Guardar usuario</string>
+    <string name="usuario_hint_contrasenia">Contraseña</string>
+    <string name="usuario_hint_correo">Correo</string>
+    <string name="usuario_hint_nombre">Nombre</string>
+    <string name="usuario_opc_agregar">Agregar usuario</string>
+    <string name="usuario_opc_editar">Modificar usuario</string>
+
+
 </resources>
