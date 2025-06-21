@@ -5,6 +5,7 @@ import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
@@ -15,6 +16,7 @@ import androidx.fragment.app.Fragment;
 import com.codedev.proyectmovil.Fragments.CursosAll;
 import com.codedev.proyectmovil.Fragments.UsuarioAll;
 import com.codedev.proyectmovil.R;
+import com.codedev.proyectmovil.Utils.ToastUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class NavitationMenu extends AppCompatActivity {
@@ -80,4 +82,26 @@ public class NavitationMenu extends AppCompatActivity {
                     return false;
                 }
             };
+    @Override
+    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_top, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+
+        if (id == R.id.menu_config) {
+            ToastUtil.show(this, "Abrir Configuración", "info");
+            return true;
+        } else if (id == R.id.menu_logout) {
+            new AlertDialog.Builder(this).setTitle("Cerrar sesion").setMessage("¿Estás seguro que quieres cerrar sesion ?").setPositiveButton("Sí", (dialog, which) -> {
+//                aqui ira el cerrado de sesion y shared preferences
+            }).setNegativeButton("Cancelar", null).show();
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
 }
