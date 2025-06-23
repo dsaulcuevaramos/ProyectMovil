@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Fragments.UsuarioAll">
+
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAgregarUsuario"
+        android:layout_width="177dp"
+        android:layout_height="61dp"
+        android:layout_gravity="clip_horizontal|center|end"
+        android:layout_margin="8dp"
+        android:backgroundTint="?attr/colorPrimary"
+        android:insetTop="10dp"
+        android:insetBottom="10dp"
+        android:text="@string/alumno_btn_agregar"
+        android:textColor="?attr/colorOnPrimary"
+        tools:ignore="VisualLintButtonSize" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerUsuarios"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dp" />
+
+</LinearLayout>
