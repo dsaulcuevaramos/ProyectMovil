@@ -75,4 +75,30 @@ public class CursosDAO {
             return listaCursos;
         }
     }
+
+    public List<CursosModel> getCursosPorFacultad(int idFacultad){
+        List<CursosModel> listaCursos = new ArrayList<>();
+        try (SQLiteDatabase db = this.helper.getReadableDatabase()){
+            Cursor cursor = db.rawQuery(
+                    "SELECT * FROM " + CursosTable.TABLE_NAME +
+                            " WHERE " + CursosTable.COL_ESTADO + " = 1 AND " +
+                            CursosTable.COL_IDFACULTAD + " = ?",
+                    new String[]{String.valueOf(idFacultad)}
+            );
+            if (cursor.moveToFirst()) {
+                do {
+                    CursosModel curso = new CursosModel();
+                    curso.setId(cursor.getInt(cursor.getColumnIndexOrThrow(CursosTable.COL_ID)));
+                    curso.setNombre(cursor.getString(cursor.getColumnIndexOrThrow(CursosTable.COL_NOMBRE)));
+                    curso.setCodigo(cursor.getString(cursor.getColumnIndexOrThrow(CursosTable.COL_CODIGO)));
+                    curso.setIdFacultad(cursor.getInt(cursor.getColumnIndexOrThrow(CursosTable.COL_IDFACULTAD)));
+                    curso.setEstado(cursor.getInt(cursor.getColumnIndexOrThrow(CursosTable.COL_ESTADO)));
+                    listaCursos.add(curso);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+        }
+        return listaCursos;
+    }
+
 }

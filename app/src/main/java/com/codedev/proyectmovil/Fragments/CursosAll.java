@@ -36,7 +36,17 @@ public class CursosAll extends Fragment {
     EditText edtNombre, edtCodigo;
     Button btnAgregar, btnGuardar;
 
+    private int idFacultad =-1;
+
     public CursosAll(){}
+
+    public static CursosAll newInstance(int idFacultad) {
+        CursosAll fragment = new CursosAll();
+        Bundle args = new Bundle();
+        args.putInt("idFacultad", idFacultad);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Nullable
     @Override
@@ -53,7 +63,11 @@ public class CursosAll extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerCursos);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        list = cursosDAO.getCursos();
+        if (getArguments() != null) {
+            idFacultad = getArguments().getInt("idFacultad", -1);
+        }
+        //list = cursosDAO.getCursos();
+        list = cursosDAO.getCursosPorFacultad(idFacultad);
         adapter = new CursosAdapter(getContext(), list, new CursosAdapter.OnItemClickListener() {
 
             @Override
@@ -76,7 +90,8 @@ public class CursosAll extends Fragment {
 
     private void recargarLista() {
         list.clear();
-        list.addAll(cursosDAO.getCursos());
+        //list.addAll(cursosDAO.getCursos());
+        list.addAll(cursosDAO.getCursosPorFacultad(idFacultad));
         adapter.notifyDataSetChanged();
     }
 
@@ -98,7 +113,8 @@ public class CursosAll extends Fragment {
             String codigo = edtCodigo.getText().toString().trim();
 
             if (!nombre.isEmpty() && !codigo.isEmpty()) {
-                CursosModel nuevo = new CursosModel(nombre, codigo, 1);
+                //CursosModel nuevo = new CursosModel(nombre, codigo, 1);
+                CursosModel nuevo = new CursosModel(nombre, codigo,idFacultad, 1);
 
                 boolean insertado = cursosDAO.addCursos(nuevo);
                 if (insertado) {
