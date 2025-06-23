@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".Fragments.CursosAll">
 
-    <TextView
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnAgregarCurso"
+        android:layout_width="177dp"
+        android:layout_height="61dp"
+        android:layout_gravity="clip_horizontal|center|end"
+        android:layout_margin="8dp"
+        android:backgroundTint="?attr/colorPrimary"
+        android:insetTop="10dp"
+        android:insetBottom="10dp"
+        android:text="@string/cursos_btn_agregar"
+        android:textColor="?attr/colorOnPrimary"
+        tools:ignore="VisualLintButtonSize" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerCursos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="Hello" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="390dp"
-        android:layout_height="86dp"
-        android:text="es otra pagina"
-        android:textSize="48sp" />
-
-</FrameLayout>
+        android:padding="8dp" />
+</LinearLayout>
