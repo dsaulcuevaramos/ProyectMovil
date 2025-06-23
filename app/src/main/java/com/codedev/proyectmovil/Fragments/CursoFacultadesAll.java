@@ -33,7 +33,7 @@ public class CursoFacultadesAll extends Fragment {
         Fragment fragment = CursosAll.newInstance(idFacultad);
         requireActivity().getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.containerCursoPorFacultad, fragment)
+                .replace(R.id.fragment_container, fragment)
                 .addToBackStack(null)
                 .commit();
     }
