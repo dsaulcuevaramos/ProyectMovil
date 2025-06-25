@@ -55,21 +55,23 @@
 
             <ImageButton
                 android:id="@+id/btnEditar"
-                android:layout_width="48dp"
+                android:layout_width="43dp"
                 android:layout_height="48dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/usuario_btn_editar"
                 app:srcCompat="@android:drawable/ic_menu_edit"
-                app:tint="?attr/colorPrimary" />
+                app:tint="?attr/colorPrimary"
+                tools:ignore="TouchTargetSizeCheck" />
 
             <ImageButton
                 android:id="@+id/btnEliminar"
-                android:layout_width="48dp"
+                android:layout_width="wrap_content"
                 android:layout_height="48dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/usuario_btn_eliminar"
                 app:srcCompat="@android:drawable/ic_menu_delete"
-                app:tint="?attr/colorError" />
+                app:tint="?attr/colorError"
+                tools:ignore="TouchTargetSizeCheck" />
         </LinearLayout>
 
     </RelativeLayout>
