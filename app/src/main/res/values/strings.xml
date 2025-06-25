@@ -13,6 +13,8 @@
     <string name="usuario_hint_nombre">Nombre</string>
     <string name="usuario_opc_agregar">Agregar usuario</string>
     <string name="usuario_opc_editar">Modificar usuario</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
     <!--    Cursos-->
     <string name="cursos_show_facultad">Facultad 1</string>

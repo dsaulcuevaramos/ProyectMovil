@@ -28,7 +28,7 @@ public class ToastUtil {
         switch (tipo) {
             case "success":
                 fondo.setColor(Color.parseColor("#43A047"));
-                icono.setImageResource(android.R.drawable.checkbox_on_background);
+                icono.setImageResource(R.drawable.ic_check_circle);
                 break;
             case "warning":
                 fondo.setColor(Color.parseColor("#FFA000"));

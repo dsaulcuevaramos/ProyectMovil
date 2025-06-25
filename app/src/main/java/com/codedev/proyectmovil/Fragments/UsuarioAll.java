@@ -20,6 +20,7 @@ import com.codedev.proyectmovil.Helpers.Usuario.UsuarioDAO;
 import com.codedev.proyectmovil.Models.UsuarioModel;
 import com.codedev.proyectmovil.R;
 import com.codedev.proyectmovil.Utils.ToastUtil;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -34,7 +35,8 @@ public class UsuarioAll extends Fragment {
     EditText edtNombre;
     EditText edtCorreo;
     EditText edtContra;
-    Button btnAgregar, btnGuardar;
+    FloatingActionButton btnAgregar;
+    Button btnGuardar;
 
     public UsuarioAll() {
     }
