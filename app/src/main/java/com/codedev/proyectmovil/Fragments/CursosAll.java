@@ -22,6 +22,7 @@ import com.codedev.proyectmovil.Helpers.Cursos.CursosDAO;
 import com.codedev.proyectmovil.Models.CursosModel;
 import com.codedev.proyectmovil.R;
 import com.codedev.proyectmovil.Utils.ToastUtil;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
@@ -34,7 +35,8 @@ public class CursosAll extends Fragment {
     CursosAdapter adapter;
     TextView txtTitulo;
     EditText edtNombre, edtCodigo;
-    Button btnAgregar, btnGuardar;
+    Button btnGuardar;
+    FloatingActionButton btnAgregar;
 
     private int idFacultad =-1;
 
