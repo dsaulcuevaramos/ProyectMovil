@@ -23,5 +23,5 @@
         android:layout_margin="16dp"
         android:contentDescription="@string/usuario_btn_agregar"
         app:srcCompat="@drawable/ic_add"
-        app:tint="@color/white"/>
+        app:tint="@color/on_primary"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -108,4 +108,10 @@ public class NavitationMenu extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void onFragmentTitleChange(String title) {
+        if (toolbar != null) {
+            toolbar.setTitle(title);
+        }
+    }
 }
