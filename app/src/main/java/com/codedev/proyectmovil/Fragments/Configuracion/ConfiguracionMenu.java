@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.codedev.proyectmovil.Fragments.CursoFacultadesAll;
 import com.codedev.proyectmovil.Fragments.UsuarioAll;
 import com.codedev.proyectmovil.R;
 
@@ -55,7 +56,9 @@ public class ConfiguracionMenu extends Fragment {
         carusuario.setOnClickListener(v -> {
             cambiarFragmento(new UsuarioAll());
         });
-
+        carCurso.setOnClickListener( v ->{
+            cambiarFragmento(new CursoFacultadesAll());
+        });
 //        Agregar el resto de opciones
     }
 
