@@ -13,6 +13,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
+import com.codedev.proyectmovil.Fragments.Configuracion.ConfiguracionMenu;
 import com.codedev.proyectmovil.Fragments.CursosAll;
 import com.codedev.proyectmovil.Fragments.UsuarioAll;
 import com.codedev.proyectmovil.R;
@@ -58,18 +59,21 @@ public class NavitationMenu extends AppCompatActivity {
 
                     int itemId = item.getItemId(); // Obtén el ID del elemento seleccionado
 
-                    if (itemId == R.id.navigation_usuarios) {
+                    if (itemId == R.id.navigation_asistencia) {
                         selectedFragment = new UsuarioAll();
                         title = "Usuarios";
-                    } else if (itemId == R.id.navigation_asistencias) {
+                    } else if (itemId == R.id.navigation_profesor) {
                         selectedFragment = new CursosAll();
                         title = "Asistencias";
-                    } else if (itemId == R.id.navigation_horario) {
+                    } else if (itemId == R.id.navigation_alumno) {
                         selectedFragment = new UsuarioAll();
                         title = "Horario";
                     } else if (itemId == R.id.navigation_perfil) {
                         selectedFragment = new CursosAll();
                         title = "Perfil";
+                    } else if (itemId == R.id.navigation_menu) {
+                        selectedFragment = new ConfiguracionMenu();
+                        title = "Opciones";
                     }
 
                     if (selectedFragment != null) {
