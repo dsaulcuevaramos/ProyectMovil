@@ -57,7 +57,7 @@
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:contentDescription="@string/btn_eliminar"
                 android:src="@android:drawable/ic_menu_delete"
-                app:tint="@color/colorError"
+                app:tint="@color/design_default_color_error"
                 tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
         </LinearLayout>
     </LinearLayout>
