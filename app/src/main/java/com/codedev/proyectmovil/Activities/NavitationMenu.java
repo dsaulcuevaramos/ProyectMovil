@@ -46,7 +46,7 @@ public class NavitationMenu extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new UsuarioAll())
                     .commit();
-            toolbar.setTitle("Usuarios"); // Titulo inicial
+            toolbar.setTitle(""); // Titulo inicial
         }
     }
 
@@ -61,7 +61,7 @@ public class NavitationMenu extends AppCompatActivity {
 
                     if (itemId == R.id.navigation_asistencia) {
                         selectedFragment = new UsuarioAll();
-                        title = "Usuarios";
+                        title = "";
                     } else if (itemId == R.id.navigation_profesor) {
                         selectedFragment = new CursosAll();
                         title = "Asistencias";
