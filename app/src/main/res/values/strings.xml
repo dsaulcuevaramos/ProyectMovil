@@ -43,4 +43,22 @@
     <string name="btn_editar">Editar</string>
     <string name="btn_eliminar">Eliminar</string>
 
+<<<<<<< HEAD
+=======
+
+    <!--    Persona-->
+    <string name="persona_show_facultad">Facultad 1</string>
+    <string name="persona_show_codigo">Código</string>
+    <string name="persona_show_nombre">Nombre</string>
+    <string name="persona_show_apellido">Apellido</string>
+    <string name="persona_hint_codigo">Código</string>
+    <string name="persona_hint_nombre">Nombre</string>
+    <string name="persona_hint_apellido">Apellido</string>
+    <string name="persona_opc_agregar">Agregar Persona</string>
+    <string name="persona_opc_editar">Modificar Persona</string>
+
+    <string name="persona_btn_agregar">Agregar Persona</string>
+    <string name="persona_btn_guardar_form">Guardar Persona</string>
+
+>>>>>>> DiegoDev
 </resources>
