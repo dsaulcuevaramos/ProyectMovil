@@ -10,14 +10,14 @@ public class UsuarioModel {
 
     public UsuarioModel(){}
 
-    public UsuarioModel(String correo, String contrasenia, String nombre, int estado) {
+    public UsuarioModel(String nombre, String correo, String contrasenia, int estado) {
         this.correo = correo;
         this.contrasenia = contrasenia;
         this.nombre = nombre;
         this.estado = estado;
     }
 
-    public UsuarioModel(String correo, String contrasenia, String nombre, int tipo, int estado) {
+    public UsuarioModel(String nombre, String correo, String contrasenia, int tipo, int estado) {
         this.correo = correo;
         this.contrasenia = contrasenia;
         this.nombre = nombre;
