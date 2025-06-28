@@ -66,7 +66,7 @@ public class PersonaAll extends Fragment {
         super.onViewCreated(view, savedInstanceState);
 
         personaDAO = new PersonaDAO(getContext());
-        recyclerPersona = view.findViewById(R.id.recyclerUsuarios);
+        recyclerPersona = view.findViewById(R.id.recyclerPersona);
         recyclerPersona.setLayoutManager(new LinearLayoutManager(getContext()));
 
         toolbar = view.findViewById(R.id.toolbar);

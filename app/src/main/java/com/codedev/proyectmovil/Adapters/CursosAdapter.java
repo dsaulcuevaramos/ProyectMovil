@@ -50,21 +50,13 @@ public class CursosAdapter extends RecyclerView.Adapter<CursosAdapter.ViewHolder
     }
 
     @Override
-<<<<<<< HEAD
     public CursosAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-=======
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
->>>>>>> DiegoDev
         View view = LayoutInflater.from(context).inflate(R.layout.cursos_item,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
-<<<<<<< HEAD
     public void onBindViewHolder(CursosAdapter.ViewHolder holder, int position) {
-=======
-    public void onBindViewHolder(ViewHolder holder, int position) {
->>>>>>> DiegoDev
         holder.bind(cursos.get(position), listener);
     }
 

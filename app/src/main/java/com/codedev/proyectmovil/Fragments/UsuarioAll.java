@@ -194,15 +194,11 @@ public class UsuarioAll extends Fragment {
         super.onCreateOptionsMenu(menu, inflater);
 
         final MenuItem item = menu.findItem(R.id.action_search);
-<<<<<<< HEAD
+
         final SearchView searchView = (androidx.appcompat.widget.SearchView) item.getActionView();
 
         searchView.setOnQueryTextListener(new androidx.appcompat.widget.SearchView.OnQueryTextListener() {
-=======
-        final SearchView searchView = (SearchView) item.getActionView();
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
->>>>>>> DiegoDev
             @Override
             public boolean onQueryTextSubmit(String query) {
                 ToastUtil.show(requireContext(), "Usuarios encontrados", "info");

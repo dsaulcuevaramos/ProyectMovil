@@ -53,21 +53,13 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
     }
 
     @Override
-<<<<<<< HEAD
     public UsuarioAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-=======
-    public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
->>>>>>> DiegoDev
         View view = LayoutInflater.from(context).inflate(R.layout.usuario_item, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-<<<<<<< HEAD
     public void onBindViewHolder(UsuarioAdapter.ViewHolder holder, int position) {
-=======
-    public void onBindViewHolder(ViewHolder holder, int position) {
->>>>>>> DiegoDev
         holder.bind(usuarios.get(position), listener);
     }
 
