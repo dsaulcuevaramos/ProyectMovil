@@ -22,7 +22,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class NavitationMenu extends AppCompatActivity {
 
-    private Toolbar toolbar;
+//    private Toolbar toolbar;
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -36,8 +36,8 @@ public class NavitationMenu extends AppCompatActivity {
             return insets;
         });
 
-        toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+//        toolbar = findViewById(R.id.toolbar);
+//        setSupportActionBar(toolbar);
 
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
@@ -46,7 +46,6 @@ public class NavitationMenu extends AppCompatActivity {
             getSupportFragmentManager().beginTransaction()
                     .replace(R.id.fragment_container, new UsuarioAll())
                     .commit();
-            toolbar.setTitle(""); // Titulo inicial
         }
     }
 
@@ -55,63 +54,51 @@ public class NavitationMenu extends AppCompatActivity {
                 @Override
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Fragment selectedFragment = null;
-                    String title = "";
 
                     int itemId = item.getItemId(); // Obtén el ID del elemento seleccionado
 
                     if (itemId == R.id.navigation_asistencia) {
                         selectedFragment = new UsuarioAll();
-                        title = "";
                     } else if (itemId == R.id.navigation_profesor) {
                         selectedFragment = new CursosAll();
-                        title = "Asistencias";
                     } else if (itemId == R.id.navigation_alumno) {
                         selectedFragment = new UsuarioAll();
-                        title = "Horario";
                     } else if (itemId == R.id.navigation_perfil) {
                         selectedFragment = new CursosAll();
-                        title = "Perfil";
                     } else if (itemId == R.id.navigation_menu) {
                         selectedFragment = new ConfiguracionMenu();
-                        title = "Opciones";
                     }
 
                     if (selectedFragment != null) {
                         getSupportFragmentManager().beginTransaction()
                                 .replace(R.id.fragment_container, selectedFragment)
                                 .commit();
-                        toolbar.setTitle(title); // Cambia el título de la Toolbar
                         return true;
                     }
                     return false;
                 }
             };
-    @Override
-    public boolean onCreateOptionsMenu(android.view.Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_top, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(android.view.Menu menu) {
+//        getMenuInflater().inflate(R.menu.menu_top, menu);
+//        return true;
+//    }
+//
+//    @Override
+//    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+//        int id = item.getItemId();
+//
+//        if (id == R.id.menu_config) {
+//            ToastUtil.show(this, "Abrir Configuración", "info");
+//            return true;
+//        } else if (id == R.id.menu_logout) {
+//            new AlertDialog.Builder(this).setTitle("Cerrar sesion").setMessage("¿Estás seguro que quieres cerrar sesion ?").setPositiveButton("Sí", (dialog, which) -> {
+////                aqui ira el cerrado de sesion y shared preferences
+//            }).setNegativeButton("Cancelar", null).show();
+//            return true;
+//        }
+//
+//        return super.onOptionsItemSelected(item);
+//    }
 
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-
-        if (id == R.id.menu_config) {
-            ToastUtil.show(this, "Abrir Configuración", "info");
-            return true;
-        } else if (id == R.id.menu_logout) {
-            new AlertDialog.Builder(this).setTitle("Cerrar sesion").setMessage("¿Estás seguro que quieres cerrar sesion ?").setPositiveButton("Sí", (dialog, which) -> {
-//                aqui ira el cerrado de sesion y shared preferences
-            }).setNegativeButton("Cancelar", null).show();
-            return true;
-        }
-
-        return super.onOptionsItemSelected(item);
-    }
-
-    public void onFragmentTitleChange(String title) {
-        if (toolbar != null) {
-            toolbar.setTitle(title);
-        }
-    }
 }

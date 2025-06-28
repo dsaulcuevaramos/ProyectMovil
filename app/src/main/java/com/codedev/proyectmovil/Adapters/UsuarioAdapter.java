@@ -67,4 +67,6 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
     public int getItemCount() {
         return usuarios.size();
     }
+
+
 }

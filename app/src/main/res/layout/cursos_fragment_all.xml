@@ -8,6 +8,22 @@
     android:orientation="vertical"
     tools:context=".Fragments.CursosAll">
 
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appbarCurso"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorSurface"
+        app:elevation="0dp">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_scrollFlags="scroll|enterAlways|snap"
+            app:title="Cursos" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/btnAgregarCurso"
         android:layout_width="wrap_content"
