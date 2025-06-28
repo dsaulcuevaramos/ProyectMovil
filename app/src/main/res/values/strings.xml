@@ -1,6 +1,18 @@
 <resources>
     <string name="app_name">ProyectMovil</string>
 
+<!--    registro usuarios-->
+    <string name="registro_titulo">Crear Cuenta</string>
+    <string name="registro_hint_nombre">Nombre</string>
+    <string name="registro_hint_apellido">Apellido</string>
+    <string name="registro_hint_codigo">Código de Estudiante</string>
+    <string name="registro_hint_facultad">Facultad</string>
+    <string name="registro_hint_usuario">Nombre de Usuario</string>
+    <string name="registro_hint_contrasenia">Contraseña</string>
+    <string name="registro_hint_confirmar_contrasenia">Confirmar Contraseña</string>
+    <string name="registro_btn_registrar">Registrarse</string>
+    <string name="registro_link_login">¿Ya tienes una cuenta? <b>Inicia Sesión</b></string>
+
     <!--    usuarios-->
     <string name="usuario_show_nombre">Nombre</string>
     <string name="usuario_show_correo">correo@email.com</string>
@@ -13,21 +25,37 @@
     <string name="usuario_hint_nombre">Nombre</string>
     <string name="usuario_opc_agregar">Agregar usuario</string>
     <string name="usuario_opc_editar">Modificar usuario</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
-    <!--    alumnos-->
-    <string name="alumno_show_codigo">Codigo</string>
-    <string name="alumno_show_nombre">Nombre</string>
-    <string name="alumno_show_correo">correo@email.com</string>
-    <string name="alumno_btn_editar">Editar</string>
-    <string name="alumno_btn_eliminar">Eliminar</string>
-    <string name="alumno_btn_agregar">Agregar alumno</string>
-    <string name="alumno_btn_guardar_form">Guardar alumno</string>
-    <string name="alumno_hint_contrasenia">Contraseña</string>
-    <string name="alumno_hint_codigo">Codigo</string>
-    <string name="alumno_hint_correo">Correo</string>
-    <string name="alumno_hint_nombre">Nombre</string>
-    <string name="alumno_opc_agregar">Agregar alumno</string>
-    <string name="alumno_opc_editar">Modificar alumno</string>
+    <!--    Cursos-->
+    <string name="cursos_show_facultad">Facultad 1</string>
+    <string name="cursos_show_nombre">Nombre</string>
+    <string name="cursos_show_codigo">Código</string>
+    <string name="cursos_hint_nombre">Nombre</string>
+    <string name="cursos_hint_codigo">Código</string>
+    <string name="cursos_opc_agregar">Agregar Curso</string>
+    <string name="cursos_opc_editar">Modificar Curso</string>
 
+    <string name="cursos_btn_agregar">Agregar Curso</string>
+    <string name="cursos_btn_guardar_form">Guardar Curso</string>
+    <!--    Botones-->
+    <string name="btn_editar">Editar</string>
+    <string name="btn_eliminar">Eliminar</string>
+
+
+    <!--    Persona-->
+    <string name="persona_show_facultad">Facultad 1</string>
+    <string name="persona_show_codigo">Código</string>
+    <string name="persona_show_nombre">Nombre</string>
+    <string name="persona_show_apellido">Apellido</string>
+    <string name="persona_hint_codigo">Código</string>
+    <string name="persona_hint_nombre">Nombre</string>
+    <string name="persona_hint_apellido">Apellido</string>
+    <string name="persona_opc_agregar">Agregar Persona</string>
+    <string name="persona_opc_editar">Modificar Persona</string>
+
+    <string name="persona_btn_agregar">Agregar Persona</string>
+    <string name="persona_btn_guardar_form">Guardar Persona</string>
 
 </resources>

@@ -9,44 +9,41 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.codedev.proyectmovil.Models.UsuarioModel;
+import com.codedev.proyectmovil.Models.CursosModel;
 import com.codedev.proyectmovil.R;
 
 import java.util.List;
 
-public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHolder>{
+public class CursosAdapter extends RecyclerView.Adapter<CursosAdapter.ViewHolder> {
     private Context context;
-    private List<UsuarioModel> usuarios;
+    private List<CursosModel> cursos;
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onEditarClick(UsuarioModel usuario);
-
-        void onEliminarClick(UsuarioModel usuario);
+        void onEditarClick(CursosModel curso);
+        void onEliminarClick(CursosModel curso);
     }
 
-    public UsuarioAdapter(Context context, List<UsuarioModel> usuarios, OnItemClickListener listener) {
+    public CursosAdapter(Context context, List<CursosModel> cursos, OnItemClickListener listener) {
         this.context = context;
-        this.usuarios = usuarios;
+        this.cursos = cursos;
         this.listener = listener;
     }
-
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtNombre, txtCorreo;
+        TextView txtNombre, txtCodigo;
         ImageButton btnEditar, btnEliminar;
 
         public ViewHolder(View itemView) {
             super(itemView);
             txtNombre = itemView.findViewById(R.id.txtNombre);
-            txtCorreo = itemView.findViewById(R.id.txtCorreo);
+            txtCodigo = itemView.findViewById(R.id.txtCodigo);
             btnEditar = itemView.findViewById(R.id.btnEditar);
             btnEliminar = itemView.findViewById(R.id.btnEliminar);
         }
 
-        public void bind(final UsuarioModel u, final OnItemClickListener listener) {
+        public void bind(final CursosModel u, final OnItemClickListener listener) {
             txtNombre.setText(u.getNombre());
-            txtCorreo.setText(u.getCorreo());
-
+            txtCodigo.setText(u.getCodigo());
             btnEditar.setOnClickListener(v -> listener.onEditarClick(u));
             btnEliminar.setOnClickListener(v -> listener.onEliminarClick(u));
         }
@@ -54,18 +51,17 @@ public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHold
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.usuario_item, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.cursos_item,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.bind(usuarios.get(position), listener);
+        holder.bind(cursos.get(position), listener);
     }
 
     @Override
     public int getItemCount() {
-        return usuarios.size();
+        return cursos.size();
     }
-
 }

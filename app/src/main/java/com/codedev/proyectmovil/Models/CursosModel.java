@@ -1,20 +1,24 @@
 package com.codedev.proyectmovil.Models;
 
-public class AlumnoModel {
+public class CursosModel {
     private int id;
-    private String codigo;
     private String nombre;
-    private String correo;
+    private String codigo;
     private int idFacultad;
     private int estado;
 
-    public AlumnoModel() {
+    public CursosModel() {}
+
+    public CursosModel(String nombre, String codigo, int idFacultad, int estado) {
+        this.nombre = nombre;
+        this.codigo = codigo;
+        this.idFacultad = idFacultad;
+        this.estado = estado;
     }
 
-    public AlumnoModel(String codigo, String nombre, String correo, int estado) {
-        this.codigo = codigo;
+    public CursosModel(String nombre, String codigo, int estado) {
         this.nombre = nombre;
-        this.correo = correo;
+        this.codigo = codigo;
         this.estado = estado;
     }
 
@@ -26,14 +30,6 @@ public class AlumnoModel {
         this.id = id;
     }
 
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }
-
     public String getNombre() {
         return nombre;
     }
@@ -42,12 +38,12 @@ public class AlumnoModel {
         this.nombre = nombre;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getCodigo() {
+        return codigo;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     public int getIdFacultad() {

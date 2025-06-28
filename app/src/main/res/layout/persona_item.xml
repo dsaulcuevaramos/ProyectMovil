@@ -10,37 +10,39 @@
     app:cardElevation="4dp"
     app:cardBackgroundColor="?attr/colorSurface">
 
-
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:padding="16dp">
-
-        <TextView
-            android:id="@+id/txtCodigo"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:id="@+id/text_container"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="?attr/colorOnSurface"
-            android:text="@string/alumno_show_codigo"
-            android:textSize="18sp"
-            android:textStyle="bold" />
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/txtCodigoPersona"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
+                android:text="@string/persona_show_codigo"/>
+            <TextView
+                android:id="@+id/txtNombrePersona"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
+                android:text="@string/persona_show_nombre"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+            <TextView
+                android:id="@+id/txtApellidoPersona"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textColor="?attr/colorOnSurface"
+                android:text="@string/persona_show_codigo"/>
 
-        <TextView
-            android:id="@+id/txtNombre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/colorOnSurface"
-            android:text="@string/alumno_show_nombre"
-            android:textSize="18sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txtCorreo"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="?attr/colorOnSurface"
-            android:text="@string/alumno_show_correo" />
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -50,25 +52,25 @@
             android:orientation="horizontal">
 
             <ImageButton
-                android:id="@+id/btnEditar"
+                android:id="@+id/btnEditarPersona"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/alumno_btn_editar"
+                android:contentDescription="@string/btn_editar"
                 android:src="@android:drawable/ic_menu_edit"
                 app:tint="?attr/colorPrimary"
                 tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
 
             <ImageButton
-                android:id="@+id/btnEliminar"
+                android:id="@+id/btnEliminarPersona"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="@string/alumno_btn_eliminar"
+                android:contentDescription="@string/btn_eliminar"
                 android:src="@android:drawable/ic_menu_delete"
-                app:tint="@color/colorError"
+                app:tint="?attr/colorError"
                 tools:ignore="TouchTargetSizeCheck,ImageContrastCheck" />
         </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

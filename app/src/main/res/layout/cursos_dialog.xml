@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:elevation="6dp"
     android:orientation="vertical"
     android:padding="24dp">
@@ -20,49 +20,35 @@
         android:layout_marginBottom="20dp" />
 
     <EditText
-        android:id="@+id/edtNuevoCodigo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:autofillHints=""
-        android:hint="@string/alumno_hint_codigo"
-        android:inputType="textPassword"
-        android:minHeight="48dp"
-        tools:ignore="VisualLintTextFieldSize" />
-
-    <EditText
-        android:id="@+id/edtNuevoNombre"
+        android:id="@+id/edtNombreCurso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:autofillHints=""
-        android:hint="@string/alumno_hint_nombre"
+        android:hint="@string/cursos_hint_nombre"
         android:inputType="text"
         android:minHeight="48dp"
         android:textColorHint="#546E7A"
         tools:ignore="VisualLintTextFieldSize" />
 
     <EditText
-        android:id="@+id/edtNuevoCorreo"
+        android:id="@+id/edtCodigoCurso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:autofillHints=""
-        android:hint="@string/alumno_hint_correo"
-        android:inputType="textEmailAddress"
+        android:hint="@string/cursos_hint_codigo"
+        android:inputType="text"
         android:minHeight="48dp"
         tools:ignore="VisualLintTextFieldSize" />
 
-
-
     <Button
-        android:id="@+id/btnGuardarNuevo"
+        android:id="@+id/btnGuardarCurso"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:text="@string/alumno_btn_guardar_form"
+        android:text="@string/cursos_btn_guardar_form"
         android:textAllCaps="false"
         app:iconPadding="10dp"
         tools:ignore="VisualLintButtonSize" />
-
 </LinearLayout>

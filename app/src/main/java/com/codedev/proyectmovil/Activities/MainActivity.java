@@ -1,6 +1,8 @@
 package com.codedev.proyectmovil.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -9,6 +11,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.codedev.proyectmovil.R;
+import com.codedev.proyectmovil.Utils.ToastUtil;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -22,5 +25,21 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        findViewById(R.id.btnPulsar).setOnClickListener(view -> {
+            presiona(view);
+        });
+    }
+
+    public void presiona(View view){
+        ToastUtil.show(this,"Hola ISaisssssssssssssss","success");
+        Intent i = new Intent(this,NavitationMenu.class);
+
+        startActivity(i);
+    }
+
+    public void registro(View view){
+        Intent i = new Intent(this, RegistroUsuario.class);
+
+        startActivity(i);
     }
 }
