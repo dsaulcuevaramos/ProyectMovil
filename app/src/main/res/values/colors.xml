@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--    Para el snackBarutils-->
+    <color name="colorSuccess">#43A047</color>
+    <color name="colorWarning">#FFA000</color>
+    <color name="colorDanger">#E53935</color>
+    <color name="colorInfo">#2196F3</color>
+    <color name="colorOnMessage">#FFFFFF</color>
+
+    <!--    Colores del tema-->
     <color name="primary">#0A80D8</color>
     <color name="primary_variant">#076AB5</color>
     <color name="secondary">#33B5E5</color>

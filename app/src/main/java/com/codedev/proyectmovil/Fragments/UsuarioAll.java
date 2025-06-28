@@ -24,6 +24,7 @@ import com.codedev.proyectmovil.Adapters.UsuarioAdapter;
 import com.codedev.proyectmovil.Helpers.Usuario.UsuarioDAO;
 import com.codedev.proyectmovil.Models.UsuarioModel;
 import com.codedev.proyectmovil.R;
+import com.codedev.proyectmovil.Utils.SnackbarUtil;
 import com.codedev.proyectmovil.Utils.ToastUtil;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -124,7 +125,7 @@ public class UsuarioAll extends Fragment {
                     recargarLista();
                     dialog.dismiss();
                 } else {
-                    ToastUtil.show(requireContext(), "Error al agregar", "danger");
+                    SnackbarUtil.show(requireView(), "Ocurrio algo!", "danger");
                 }
             } else {
                 ToastUtil.show(requireContext(), "Completa todos los campos", "danger");

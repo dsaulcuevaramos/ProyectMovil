@@ -15,7 +15,7 @@ import com.codedev.proyectmovil.R;
 public class ToastUtil {
     public static void show(Context context, String mensaje, String tipo) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View layout = inflater.inflate(R.layout.toast_custom, null);
+        View layout = inflater.inflate(R.layout.custom_toast, null);
 
         LinearLayout fondoLayout = layout.findViewById(R.id.toast_layout);
         ImageView icono = layout.findViewById(R.id.toast_icon);
