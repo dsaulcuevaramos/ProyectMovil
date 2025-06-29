@@ -5,7 +5,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.codedev.proyectmovil.Helpers.DatabaseHelper;
 import com.codedev.proyectmovil.Models.ProfesorModel;
 
 import java.util.ArrayList;
