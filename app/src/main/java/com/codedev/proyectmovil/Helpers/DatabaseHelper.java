@@ -7,12 +7,13 @@ import android.database.sqlite.SQLiteOpenHelper;
 import androidx.annotation.Nullable;
 
 
-import com.codedev.proyectmovil.Helpers.Usuario.ProfesorTable;
+import com.codedev.proyectmovil.Helpers.Cursos.CursosTable;
+import com.codedev.proyectmovil.Helpers.Usuario.UsuarioTable;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
+    private static final String DATABASE_NAME = "Personas.db";
+    private static final int DATABASE_VERSION = 2;
 
-    private static final String DATABASE_NAME = "Movil.db";
-    private static final int DATABASE_VERSION = 1;
 
 
 
@@ -23,14 +24,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
 
-        db.execSQL(ProfesorTable.SQL_CREATE);
-
+        db.execSQL(UsuarioTable.SQL_CREATE);
+        db.execSQL(CursosTable.SQL_CREATE);
 
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL(UsuarioTable.SQL_DROP);
+        db.execSQL(CursosTable.SQL_DROP);
         onCreate(db);
     }
 

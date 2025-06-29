@@ -1,7 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="colorError">#F44336</color>
+    <!--    Para el snackBarutils-->
+    <color name="colorSuccess">#43A047</color>
+    <color name="colorWarning">#FFA000</color>
+    <color name="colorDanger">#E53935</color>
+    <color name="colorInfo">#2196F3</color>
+    <color name="colorOnMessage">#FFFFFF</color>
 
-    <color name="colorPrimary">#0D47A1</color>        <color name="colorPrimaryVariant">#1565C0</color>  <color name="colorSecondary">#42A5F5</color>      <color name="textColorPrimary">#000000</color>     <color name="textColorSecondary">#757575</color>   <color name="windowBackground">#F5F5F5</color>       <color name="colorSurface">#FFFFFF</color>          <color name="colorOnSurface">#000000</color>       </resources>
+    <!--    Colores del tema-->
+    <color name="primary">#0A80D8</color>
+    <color name="primary_variant">#076AB5</color>
+    <color name="secondary">#33B5E5</color>
+    <color name="background">#F5F5F5</color>
+    <color name="surface">#FFFFFF</color>
+    <color name="on_primary">#FFFFFF</color>
+    <color name="on_secondary">#000000</color>
+    <color name="on_background">#212121</color>
+    <color name="on_surface">#212121</color>
+    <color name="error">#B00020</color>
+    <color name="on_error">#FFFFFF</color>
+</resources>

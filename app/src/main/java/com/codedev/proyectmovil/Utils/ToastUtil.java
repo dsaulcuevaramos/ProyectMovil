@@ -15,7 +15,7 @@ import com.codedev.proyectmovil.R;
 public class ToastUtil {
     public static void show(Context context, String mensaje, String tipo) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View layout = inflater.inflate(R.layout.toast_custom, null);
+        View layout = inflater.inflate(R.layout.custom_toast, null);
 
         LinearLayout fondoLayout = layout.findViewById(R.id.toast_layout);
         ImageView icono = layout.findViewById(R.id.toast_icon);
@@ -28,7 +28,7 @@ public class ToastUtil {
         switch (tipo) {
             case "success":
                 fondo.setColor(Color.parseColor("#43A047"));
-                icono.setImageResource(android.R.drawable.checkbox_on_background);
+                icono.setImageResource(R.drawable.ic_check_circle);
                 break;
             case "warning":
                 fondo.setColor(Color.parseColor("#FFA000"));

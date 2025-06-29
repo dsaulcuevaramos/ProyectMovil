@@ -56,7 +56,7 @@ public class UsuarioDAO {
             List<UsuarioModel> listaUsuarios = new ArrayList<>();
             Cursor cursor = db.rawQuery("SELECT * FROM " + UsuarioTable.TABLE_NAME + " WHERE " + UsuarioTable.COL_ESTADO + " = 1", null);
 
-            if (cursor != null && cursor.moveToFirst()) {
+            if (cursor.moveToFirst()) {
                 do {
                     UsuarioModel u = new UsuarioModel();
                     u.setId(cursor.getInt(cursor.getColumnIndexOrThrow(UsuarioTable.COL_ID)));
@@ -72,4 +72,30 @@ public class UsuarioDAO {
             return listaUsuarios;
         }
     }
+
+    public List<UsuarioModel> getBusquedaUsuarios(String valor){
+        try (SQLiteDatabase db = this.helper.getReadableDatabase()){
+            List<UsuarioModel> listaUsuarios = new ArrayList<>();
+            Cursor cursor = db.rawQuery("SELECT * FROM " + UsuarioTable.TABLE_NAME + " WHERE " + UsuarioTable.COL_ESTADO + " = 1 AND (" +
+                    UsuarioTable.COL_NOMBRE + " LIKE ? OR " +
+                    UsuarioTable.COL_CORREO + " LIKE ?)",
+                    new String[]{"%" + valor + "%", "%" + valor + "%"});
+
+            if (cursor.moveToFirst()) {
+                do {
+                    UsuarioModel u = new UsuarioModel();
+                    u.setId(cursor.getInt(cursor.getColumnIndexOrThrow(UsuarioTable.COL_ID)));
+                    u.setNombre(cursor.getString(cursor.getColumnIndexOrThrow(UsuarioTable.COL_NOMBRE)));
+                    u.setCorreo(cursor.getString(cursor.getColumnIndexOrThrow(UsuarioTable.COL_CORREO)));
+                    u.setContrasenia(cursor.getString(cursor.getColumnIndexOrThrow(UsuarioTable.COL_CONTRASENIA)));
+                    u.setEstado(cursor.getInt(cursor.getColumnIndexOrThrow(UsuarioTable.COL_ESTADO)));
+                    listaUsuarios.add(u);
+                } while (cursor.moveToNext());
+            }
+
+            cursor.close();
+            return listaUsuarios;
+        }
+    }
+
 }
