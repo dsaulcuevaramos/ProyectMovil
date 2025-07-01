@@ -14,7 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.codedev.proyectmovil.Fragments.CursoFacultadesAll;
-import com.codedev.proyectmovil.Fragments.UsuarioAll;
+import com.codedev.proyectmovil.Fragments.Usuario.UsuarioAll;
 import com.codedev.proyectmovil.R;
 
 /**

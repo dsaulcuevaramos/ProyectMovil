@@ -22,7 +22,7 @@
             android:layout_centerVertical="true"
             android:orientation="vertical">
             <TextView
-                android:id="@+id/txtNombre"
+                android:id="@+id/txtNombreCompleto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textColor="?attr/colorOnSurface"

@@ -7,4 +7,10 @@
         android:title="Buscar"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="ifRoom|collapseActionView" />
+
+    <item
+        android:id="@+id/action_generate_report"
+        android:icon="@drawable/ic_picture_as_pdf"
+        android:title="Generar PDF"
+        app:showAsAction="ifRoom" />
 </menu>

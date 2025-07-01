@@ -2,26 +2,25 @@ package com.codedev.proyectmovil.Models;
 
 public class UsuarioModel {
     private int id;
-    private String nombre;
-    private String correo;
+    private String usuario;
     private String contrasenia;
-    private int tipo;
+    private int persona_id;
+    private int rol_id;
     private int estado;
 
     public UsuarioModel(){}
 
-    public UsuarioModel(String nombre, String correo, String contrasenia, int estado) {
-        this.correo = correo;
+    public UsuarioModel(String usuario, String contrasenia, int estado) {
         this.contrasenia = contrasenia;
-        this.nombre = nombre;
+        this.usuario = usuario;
         this.estado = estado;
     }
 
-    public UsuarioModel(String nombre, String correo, String contrasenia, int tipo, int estado) {
-        this.correo = correo;
+    public UsuarioModel(String usuario, String contrasenia, int persona_id, int rol_id, int estado) {
         this.contrasenia = contrasenia;
-        this.nombre = nombre;
-        this.tipo = tipo;
+        this.usuario = usuario;
+        this.persona_id = persona_id;
+        this.rol_id = rol_id;
         this.estado = estado;
     }
 
@@ -41,28 +40,20 @@ public class UsuarioModel {
         this.contrasenia = contrasenia;
     }
 
-    public int getTipo() {
-        return tipo;
+    public int getRol_id() {
+        return rol_id;
     }
 
-    public void setTipo(int tipo) {
-        this.tipo = tipo;
+    public void setRol_id(int rol_id) {
+        this.rol_id = rol_id;
     }
 
-    public String getCorreo() {
-        return correo;
+    public String getUsuario() {
+        return usuario;
     }
 
-    public void setCorreo(String correo) {
-        this.correo = correo;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 
     public int getId() {
@@ -71,5 +62,13 @@ public class UsuarioModel {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getPersona_id() {
+        return persona_id;
+    }
+
+    public void setPersona_id(int persona_id) {
+        this.persona_id = persona_id;
     }
 }

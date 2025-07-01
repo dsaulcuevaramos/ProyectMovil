@@ -32,7 +32,7 @@
             android:baselineAligned="false">
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_nombre"
+                android:id="@+id/til_nombre_registrar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -41,14 +41,14 @@
                 app:startIconDrawable="@drawable/ic_person">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiet_nombre"
+                    android:id="@+id/tiet_nombre_registrar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName|textCapWords"/>
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/til_apellido"
+                android:id="@+id/til_apellido_registrar"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -56,7 +56,7 @@
                 android:hint="@string/registro_hint_apellido">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/tiet_apellido"
+                    android:id="@+id/tiet_apellido_registrar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPersonName|textCapWords"/>
@@ -64,7 +64,7 @@
         </LinearLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_codigo"
+            android:id="@+id/til_codigo_registrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -72,14 +72,14 @@
             app:startIconDrawable="@drawable/ic_codigo">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiet_codigo"
+                android:id="@+id/tiet_codigo_registrar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="text"/>
+                android:inputType="number" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_facultad"
+            android:id="@+id/til_facultad_registrar"
             style="@style/Widget.Material3.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -88,7 +88,7 @@
             app:startIconDrawable="@drawable/ic_school">
 
             <AutoCompleteTextView
-                android:id="@+id/actv_facultad"
+                android:id="@+id/actv_facultad_registrar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="none"
@@ -104,21 +104,21 @@
             android:layout_marginBottom="24dp"/>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_usuario"
+            android:id="@+id/til_usuario_registrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/registro_hint_usuario"
             app:startIconDrawable="@drawable/ic_perfil">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiet_usuario"
+                android:id="@+id/tiet_usuario_registrar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_contrasenia"
+            android:id="@+id/til_contrasenia_registrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -127,14 +127,14 @@
             app:startIconDrawable="@drawable/ic_lock">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiet_contrasenia"
+                android:id="@+id/tiet_contrasenia_registrar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"/>
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/til_confirmar_contrasenia"
+            android:id="@+id/til_confirmar_contrasenia_registrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -143,7 +143,7 @@
             app:startIconDrawable="@drawable/ic_lock">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/tiet_confirmar_contrasenia"
+                android:id="@+id/tiet_confirmar_contrasenia_registrar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"/>
@@ -154,10 +154,10 @@
             android:id="@+id/btn_registrar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/registro_btn_registrar"
-            android:padding="14dp"
             android:layout_marginTop="32dp"
-            android:textSize="16sp"/>
+            android:padding="14dp"
+            android:text="@string/registro_btn_registrar"
+            android:textSize="16sp" />
 
         <TextView
             android:id="@+id/tv_iniciar_sesion"

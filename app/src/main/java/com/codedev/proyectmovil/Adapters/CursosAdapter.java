@@ -35,7 +35,7 @@ public class CursosAdapter extends RecyclerView.Adapter<CursosAdapter.ViewHolder
 
         public ViewHolder(View itemView) {
             super(itemView);
-            txtNombre = itemView.findViewById(R.id.txtNombre);
+            txtNombre = itemView.findViewById(R.id.txtNombreCompleto);
             txtCodigo = itemView.findViewById(R.id.txtCodigo);
             btnEditar = itemView.findViewById(R.id.btnEditar);
             btnEliminar = itemView.findViewById(R.id.btnEliminar);

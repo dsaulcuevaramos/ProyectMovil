@@ -130,8 +130,8 @@ public class PersonaAll extends Fragment {
                 //CursosModel nuevo = new CursosModel(nombre, codigo, 1);
                 PersonaModel nuevaPersona = new PersonaModel(codigo,nombre,apellido,idFacultad, 1);
 
-                boolean insertado = personaDAO.addPersona(nuevaPersona);
-                if (insertado) {
+                PersonaModel insertado = personaDAO.addPersona(nuevaPersona);
+                if (insertado != null) {
                     ToastUtil.show(requireContext(), "Persona agregada correctamente", "success");
                     recargarLista();
                     dialog.dismiss();

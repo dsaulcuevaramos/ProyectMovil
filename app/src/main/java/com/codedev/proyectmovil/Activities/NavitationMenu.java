@@ -5,9 +5,7 @@ import android.view.MenuItem;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -15,9 +13,8 @@ import androidx.fragment.app.Fragment;
 
 import com.codedev.proyectmovil.Fragments.Configuracion.ConfiguracionMenu;
 import com.codedev.proyectmovil.Fragments.CursosAll;
-import com.codedev.proyectmovil.Fragments.UsuarioAll;
+import com.codedev.proyectmovil.Fragments.Usuario.UsuarioAll;
 import com.codedev.proyectmovil.R;
-import com.codedev.proyectmovil.Utils.ToastUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class NavitationMenu extends AppCompatActivity {
