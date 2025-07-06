@@ -9,45 +9,48 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.codedev.proyectmovil.Models.UsuarioModel;
+import com.codedev.proyectmovil.Models.Requests.UsuarioRequest;
 import com.codedev.proyectmovil.R;
 
 import java.util.List;
 
 public class UsuarioAdapter extends RecyclerView.Adapter<UsuarioAdapter.ViewHolder>{
     private Context context;
-    private List<UsuarioModel> usuarios;
+    private List<UsuarioRequest> usuarios;
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onEditarClick(UsuarioModel usuario);
+        void onEditarClick(int id);
 
-        void onEliminarClick(UsuarioModel usuario);
+        void onEliminarClick(UsuarioRequest usuario);
     }
 
-    public UsuarioAdapter(Context context, List<UsuarioModel> usuarios, OnItemClickListener listener) {
+    public UsuarioAdapter(Context context, List<UsuarioRequest> usuarios, OnItemClickListener listener) {
         this.context = context;
         this.usuarios = usuarios;
         this.listener = listener;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtNombre, txtCorreo;
+        TextView txtNombre, txtRol, txtUsuario;
         ImageButton btnEditar, btnEliminar;
 
         public ViewHolder(View itemView) {
             super(itemView);
-            txtNombre = itemView.findViewById(R.id.txtNombre);
-            txtCorreo = itemView.findViewById(R.id.txtCorreo);
+            txtNombre = itemView.findViewById(R.id.txtNombreCompleto);
+            txtRol = itemView.findViewById(R.id.txtRol);
+            txtUsuario = itemView.findViewById(R.id.txtUsuario);
             btnEditar = itemView.findViewById(R.id.btnEditar);
             btnEliminar = itemView.findViewById(R.id.btnEliminar);
         }
 
-        public void bind(final UsuarioModel u, final OnItemClickListener listener) {
-            txtNombre.setText(u.getNombre());
-            txtCorreo.setText(u.getCorreo());
+        public void bind(final UsuarioRequest u, final OnItemClickListener listener) {
+            String nombre = u.getNombrePersona() + " " + u.getApellidoPersona();
+            txtNombre.setText(nombre);
+            txtRol.setText(u.getRolNombre());
+            txtUsuario.setText(u.getUsuario());
 
-            btnEditar.setOnClickListener(v -> listener.onEditarClick(u));
+            btnEditar.setOnClickListener(v -> listener.onEditarClick(u.getIdUsuario()));
             btnEliminar.setOnClickListener(v -> listener.onEliminarClick(u));
         }
     }

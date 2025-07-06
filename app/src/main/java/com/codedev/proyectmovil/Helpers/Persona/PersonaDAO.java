@@ -18,7 +18,7 @@ public class PersonaDAO {
         helper = new DatabaseHelper(context);
     }
 
-    public boolean addPersona(PersonaModel p){
+    public PersonaModel addPersona(PersonaModel p){
         try (SQLiteDatabase db = this.helper.getWritableDatabase()){
             ContentValues values = new ContentValues();
             values.put(PersonaTable.COL_CODIGO, p.getCodigo());
@@ -27,7 +27,12 @@ public class PersonaDAO {
             values.put(PersonaTable.COL_IDFACULTAD, p.getIdFacultad());
             values.put(PersonaTable.COL_ESTADO, 1);
             long resultado = db.insert(PersonaTable.TABLE_NAME, null, values);
-            return resultado != -1;
+            if (resultado != -1) {
+                p.setId((int) resultado);
+                return p;
+            } else {
+                return null;
+            }
         }
     }
 
@@ -50,6 +55,27 @@ public class PersonaDAO {
             values.put(PersonaTable.COL_ESTADO,0);
             long filas = db.update(PersonaTable.TABLE_NAME,values, PersonaTable.COL_ID + " =?", new String[]{String.valueOf(id)});
             return filas>0;
+        }
+    }
+
+    public PersonaModel getPersonaById(int id){
+        try(SQLiteDatabase db = this.helper.getReadableDatabase()){
+            Cursor cursor = db.rawQuery("SELECT * FROM " + PersonaTable.TABLE_NAME + " WHERE " + PersonaTable.COL_ESTADO + " = 1 AND " +
+                    PersonaTable.COL_ID + " = ?",  new String[]{String.valueOf(id)});
+
+            if (!cursor.moveToFirst()) {
+                cursor.close();
+                return null;
+            }
+            PersonaModel p = new PersonaModel();
+            p.setId(cursor.getInt(cursor.getColumnIndexOrThrow(PersonaTable.COL_ID)));
+            p.setCodigo(cursor.getString(cursor.getColumnIndexOrThrow(PersonaTable.COL_CODIGO)));
+            p.setNombre(cursor.getString(cursor.getColumnIndexOrThrow(PersonaTable.COL_NOMBRE)));
+            p.setApellido(cursor.getString(cursor.getColumnIndexOrThrow(PersonaTable.COL_APELLIDO)));
+            p.setIdFacultad(cursor.getInt(cursor.getColumnIndexOrThrow(PersonaTable.COL_IDFACULTAD)));
+            p.setEstado(cursor.getInt(cursor.getColumnIndexOrThrow(PersonaTable.COL_ESTADO)));
+            cursor.close();
+            return p;
         }
     }
 

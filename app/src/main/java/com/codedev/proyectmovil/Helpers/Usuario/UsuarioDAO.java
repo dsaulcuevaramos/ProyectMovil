@@ -4,8 +4,17 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.codedev.proyectmovil.Helpers.DatabaseHelper;
+import com.codedev.proyectmovil.Helpers.Facultad.FacultadDAO;
+import com.codedev.proyectmovil.Helpers.Facultad.FacultadTable;
+import com.codedev.proyectmovil.Helpers.Persona.PersonaTable;
+import com.codedev.proyectmovil.Helpers.Rol.RolDAO;
+import com.codedev.proyectmovil.Helpers.Rol.RolTable;
+import com.codedev.proyectmovil.Models.FacultadModel;
+import com.codedev.proyectmovil.Models.Requests.UsuarioRequest;
+import com.codedev.proyectmovil.Models.RolModel;
 import com.codedev.proyectmovil.Models.UsuarioModel;
 
 import java.util.ArrayList;
@@ -13,37 +22,46 @@ import java.util.List;
 
 public class UsuarioDAO {
     private DatabaseHelper helper;
+    private Context c;
 
     public UsuarioDAO(Context context) {
         helper = new DatabaseHelper(context);
+        c = context;
     }
 
-    public boolean addUsuario(UsuarioModel u){
-        try (SQLiteDatabase db = this.helper.getWritableDatabase()){
+    public UsuarioModel addUsuario(UsuarioModel u) {
+        try (SQLiteDatabase db = this.helper.getWritableDatabase()) {
             ContentValues values = new ContentValues();
-            values.put(UsuarioTable.COL_NOMBRE, u.getNombre());
-            values.put(UsuarioTable.COL_CORREO, u.getCorreo());
+            values.put(UsuarioTable.COL_USUARIO, u.getUsuario());
             values.put(UsuarioTable.COL_CONTRASENIA, u.getContrasenia());
+            values.put(UsuarioTable.COL_PERSONA_ID, u.getPersona_id());
+            values.put(UsuarioTable.COL_ROL_ID, u.getRol_id());
             values.put(UsuarioTable.COL_ESTADO, 1);
             long resultado = db.insert(UsuarioTable.TABLE_NAME, null, values);
-            return resultado != -1;
+            if (resultado != -1) {
+                u.setId((int) resultado);
+                return u;
+            } else {
+                return null;
+            }
         }
     }
 
-    public boolean updateUsuario(UsuarioModel u){
-        try (SQLiteDatabase db = this.helper.getWritableDatabase()){
+    public boolean updateUsuario(UsuarioModel u) {
+        try (SQLiteDatabase db = this.helper.getWritableDatabase()) {
             ContentValues values = new ContentValues();
-            values.put(UsuarioTable.COL_NOMBRE, u.getNombre());
-            values.put(UsuarioTable.COL_CORREO, u.getCorreo());
+            values.put(UsuarioTable.COL_USUARIO, u.getUsuario());
             values.put(UsuarioTable.COL_CONTRASENIA, u.getContrasenia());
+            values.put(UsuarioTable.COL_PERSONA_ID, u.getPersona_id());
+            values.put(UsuarioTable.COL_ROL_ID, u.getRol_id());
             values.put(UsuarioTable.COL_ESTADO, u.getEstado());
             long filas = db.update(UsuarioTable.TABLE_NAME, values, UsuarioTable.COL_ID + " = ?", new String[]{String.valueOf(u.getId())});
             return filas > 0;
         }
     }
 
-    public boolean deleteUsuario(int id){
-        try (SQLiteDatabase db = this.helper.getWritableDatabase()){
+    public boolean deleteUsuario(int id) {
+        try (SQLiteDatabase db = this.helper.getWritableDatabase()) {
             ContentValues values = new ContentValues();
             values.put(UsuarioTable.COL_ESTADO, 0);
             long filas = db.update(UsuarioTable.TABLE_NAME, values, UsuarioTable.COL_ID + " =?", new String[]{String.valueOf(id)});
@@ -51,21 +69,76 @@ public class UsuarioDAO {
         }
     }
 
-    public List<UsuarioModel> getUsuarios(){
-        try (SQLiteDatabase db = this.helper.getReadableDatabase()){
-            List<UsuarioModel> listaUsuarios = new ArrayList<>();
-            Cursor cursor = db.rawQuery("SELECT * FROM " + UsuarioTable.TABLE_NAME + " WHERE " + UsuarioTable.COL_ESTADO + " = 1", null);
+    public boolean recoverUsuario(int id) {
+        try (SQLiteDatabase db = this.helper.getWritableDatabase()) {
+            ContentValues values = new ContentValues();
+            values.put(UsuarioTable.COL_ESTADO, 1);
+            long filas = db.update(UsuarioTable.TABLE_NAME, values, UsuarioTable.COL_ID + " =?", new String[]{String.valueOf(id)});
+            return filas > 0;
+        }
+    }
+
+    public UsuarioModel getUsuarioById(int id) {
+        try (SQLiteDatabase db = this.helper.getReadableDatabase()) {
+            UsuarioModel u = new UsuarioModel();
+            Cursor cursor = db.rawQuery("SELECT * FROM " + UsuarioTable.TABLE_NAME + " WHERE " + UsuarioTable.COL_ESTADO + " = 1 AND " +
+                    UsuarioTable.COL_ID + " = ?", new String[]{String.valueOf(id)});
+            if (cursor.moveToFirst()) {
+                u.setId(cursor.getInt(cursor.getColumnIndexOrThrow(UsuarioTable.COL_ID)));
+                u.setUsuario(cursor.getString(cursor.getColumnIndexOrThrow(UsuarioTable.COL_USUARIO)));
+                u.setContrasenia(cursor.getString(cursor.getColumnIndexOrThrow(UsuarioTable.COL_CONTRASENIA)));
+                u.setPersona_id(cursor.getInt(cursor.getColumnIndexOrThrow(UsuarioTable.COL_PERSONA_ID)));
+                u.setRol_id(cursor.getInt(cursor.getColumnIndexOrThrow(UsuarioTable.COL_ROL_ID)));
+                u.setEstado(cursor.getInt(cursor.getColumnIndexOrThrow(UsuarioTable.COL_ESTADO)));
+            }
+            cursor.close();
+            return u;
+        }
+    }
+
+    public List<UsuarioRequest> getAllUsuarios() {
+        try (SQLiteDatabase db = this.helper.getReadableDatabase()) {
+            List<UsuarioRequest> listaUsuarios = new ArrayList<>();
+            Cursor cursor = db.rawQuery("SELECT " +
+                    "u." + UsuarioTable.COL_ID + " AS usuario_id, u." + UsuarioTable.COL_USUARIO + ", " +
+                    "p." + PersonaTable.COL_NOMBRE + " AS persona_nombre, p." + PersonaTable.COL_APELLIDO + " AS persona_apellido, p." + PersonaTable.COL_CODIGO + " AS persona_codigo, " +
+                    "r." + RolTable.COL_NOMBRE + " AS rol_nombre, " +
+                    "f." + FacultadTable.COL_NOMBRE + " AS facultad_nombre " +
+                    "FROM " + UsuarioTable.TABLE_NAME + " u " +
+                    "JOIN " + PersonaTable.TABLE_NAME + " p ON u.persona_id = p.id " +
+                    "JOIN " + RolTable.TABLE_NAME + " r ON u." + UsuarioTable.COL_ROL_ID + " = r." + RolTable.COL_ID + " " +
+                    "JOIN " + FacultadTable.TABLE_NAME + " f ON p." + PersonaTable.COL_IDFACULTAD + " = f." + FacultadTable.COL_ID + " " +
+                    "WHERE u.estado = 1", null);
 
             if (cursor.moveToFirst()) {
                 do {
-                    UsuarioModel u = new UsuarioModel();
-                    u.setId(cursor.getInt(cursor.getColumnIndexOrThrow(UsuarioTable.COL_ID)));
-                    u.setNombre(cursor.getString(cursor.getColumnIndexOrThrow(UsuarioTable.COL_NOMBRE)));
-                    u.setCorreo(cursor.getString(cursor.getColumnIndexOrThrow(UsuarioTable.COL_CORREO)));
-                    u.setContrasenia(cursor.getString(cursor.getColumnIndexOrThrow(UsuarioTable.COL_CONTRASENIA)));
-                    u.setEstado(cursor.getInt(cursor.getColumnIndexOrThrow(UsuarioTable.COL_ESTADO)));
-                    listaUsuarios.add(u);
+                    UsuarioRequest uc = new UsuarioRequest();
+                    uc.setIdUsuario(cursor.getInt(cursor.getColumnIndexOrThrow("usuario_id")));
+                    uc.setUsuario(cursor.getString(cursor.getColumnIndexOrThrow(UsuarioTable.COL_USUARIO)));
+                    uc.setNombrePersona(cursor.getString(cursor.getColumnIndexOrThrow("persona_nombre")));
+                    uc.setApellidoPersona(cursor.getString(cursor.getColumnIndexOrThrow("persona_apellido")));
+                    uc.setCodigoPersona(cursor.getString(cursor.getColumnIndexOrThrow("persona_codigo")));
+                    uc.setRolNombre(cursor.getString(cursor.getColumnIndexOrThrow("rol_nombre")));
+                    uc.setFacultadNombre(cursor.getString(cursor.getColumnIndexOrThrow("facultad_nombre")));
+                    listaUsuarios.add(uc);
                 } while (cursor.moveToNext());
+            }
+
+            FacultadDAO di = new FacultadDAO(c);
+            List<FacultadModel> li = di.getFacultad();
+            for (FacultadModel rol : li) {
+                Log.d("FACULTAD", "ID: " + rol.getId() + ", nombre: " + rol.getNombre());
+            }
+
+            RolDAO d = new RolDAO(c);
+            List<RolModel> l = d.getRol();
+            for (RolModel rol : l) {
+                Log.d("ROL", "ID: " + rol.getId() + ", nombre: " + rol.getNombre());
+            }
+
+            cursor = db.rawQuery("SELECT * FROM " + UsuarioTable.TABLE_NAME, null);
+            while (cursor.moveToNext()) {
+                Log.d("USUARIO", "ID: " + cursor.getInt(0) + ", Usuario: " + cursor.getString(1) + "rol: " + cursor.getString(5) + "Persona: " + cursor.getString(4));
             }
 
             cursor.close();
@@ -73,28 +146,48 @@ public class UsuarioDAO {
         }
     }
 
-    public List<UsuarioModel> getBusquedaUsuarios(String valor){
-        try (SQLiteDatabase db = this.helper.getReadableDatabase()){
-            List<UsuarioModel> listaUsuarios = new ArrayList<>();
-            Cursor cursor = db.rawQuery("SELECT * FROM " + UsuarioTable.TABLE_NAME + " WHERE " + UsuarioTable.COL_ESTADO + " = 1 AND (" +
-                    UsuarioTable.COL_NOMBRE + " LIKE ? OR " +
-                    UsuarioTable.COL_CORREO + " LIKE ?)",
-                    new String[]{"%" + valor + "%", "%" + valor + "%"});
+    public List<UsuarioRequest> getBusquedaUsuarios(String valor) {
+        String filtro = "%" + valor + "%";
 
-            if (cursor.moveToFirst()) {
-                do {
-                    UsuarioModel u = new UsuarioModel();
-                    u.setId(cursor.getInt(cursor.getColumnIndexOrThrow(UsuarioTable.COL_ID)));
-                    u.setNombre(cursor.getString(cursor.getColumnIndexOrThrow(UsuarioTable.COL_NOMBRE)));
-                    u.setCorreo(cursor.getString(cursor.getColumnIndexOrThrow(UsuarioTable.COL_CORREO)));
-                    u.setContrasenia(cursor.getString(cursor.getColumnIndexOrThrow(UsuarioTable.COL_CONTRASENIA)));
-                    u.setEstado(cursor.getInt(cursor.getColumnIndexOrThrow(UsuarioTable.COL_ESTADO)));
-                    listaUsuarios.add(u);
-                } while (cursor.moveToNext());
+        String sql =
+                "SELECT " +
+                        "  u." + UsuarioTable.COL_ID + "  AS usuario_id, " +
+                        "  u." + UsuarioTable.COL_USUARIO + ", " +
+                        "  p." + PersonaTable.COL_NOMBRE + "  AS persona_nombre, " +
+                        "  p." + PersonaTable.COL_APELLIDO + "  AS persona_apellido, " +
+                        "  p." + PersonaTable.COL_CODIGO + "  AS persona_codigo, " +
+                        "  r." + RolTable.COL_NOMBRE + "  AS rol_nombre, " +
+                        "  f." + FacultadTable.COL_NOMBRE + "  AS facultad_nombre " +
+                        "FROM " + UsuarioTable.TABLE_NAME + " u " +
+                        "JOIN " + PersonaTable.TABLE_NAME + " p ON u.persona_id = p.id " +
+                        "JOIN " + RolTable.TABLE_NAME + " r ON u." + UsuarioTable.COL_ROL_ID + " = r." + RolTable.COL_ID + " " +
+                        "JOIN " + FacultadTable.TABLE_NAME + " f ON p." + PersonaTable.COL_IDFACULTAD + " = f." + FacultadTable.COL_ID + " " +
+                        "WHERE u." + UsuarioTable.COL_ESTADO + " = 1 AND (" +
+                        "      u." + UsuarioTable.COL_USUARIO + " LIKE ? OR " +
+                        "      p." + PersonaTable.COL_NOMBRE + " LIKE ? OR " +
+                        "      p." + PersonaTable.COL_APELLIDO + " LIKE ? OR " +
+                        "      p." + PersonaTable.COL_CODIGO + " LIKE ? OR " +
+                        "      r." + RolTable.COL_NOMBRE + " LIKE ? OR " +
+                        "      f." + FacultadTable.COL_NOMBRE + " LIKE ?)";
+
+        try (SQLiteDatabase db = helper.getReadableDatabase();
+             Cursor cursor = db.rawQuery(sql,
+                     new String[]{filtro, filtro, filtro, filtro, filtro, filtro})) {
+
+            List<UsuarioRequest> lista = new ArrayList<>();
+
+            while (cursor.moveToNext()) {
+                UsuarioRequest uc = new UsuarioRequest();
+                uc.setIdUsuario(cursor.getInt(cursor.getColumnIndexOrThrow("usuario_id")));
+                uc.setUsuario(cursor.getString(cursor.getColumnIndexOrThrow(UsuarioTable.COL_USUARIO)));
+                uc.setNombrePersona(cursor.getString(cursor.getColumnIndexOrThrow("persona_nombre")));
+                uc.setApellidoPersona(cursor.getString(cursor.getColumnIndexOrThrow("persona_apellido")));
+                uc.setCodigoPersona(cursor.getString(cursor.getColumnIndexOrThrow("persona_codigo")));
+                uc.setRolNombre(cursor.getString(cursor.getColumnIndexOrThrow("rol_nombre")));
+                uc.setFacultadNombre(cursor.getString(cursor.getColumnIndexOrThrow("facultad_nombre")));
+                lista.add(uc);
             }
-
-            cursor.close();
-            return listaUsuarios;
+            return lista;
         }
     }
 

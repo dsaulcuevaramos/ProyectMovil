@@ -1,4 +1,4 @@
-package com.codedev.proyectmovil.Fragments;
+package com.codedev.proyectmovil.Fragments.Usuario;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,14 +17,15 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.codedev.proyectmovil.Adapters.UsuarioAdapter;
 import com.codedev.proyectmovil.Helpers.Usuario.UsuarioDAO;
-import com.codedev.proyectmovil.Models.UsuarioModel;
+import com.codedev.proyectmovil.Models.Requests.UsuarioRequest;
 import com.codedev.proyectmovil.R;
-import com.codedev.proyectmovil.Utils.SnackbarUtil;
 import com.codedev.proyectmovil.Utils.ToastUtil;
 import com.google.android.material.appbar.MaterialToolbar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,12 +36,12 @@ import java.util.List;
 public class UsuarioAll extends Fragment {
     UsuarioDAO usuarioDAO;
     RecyclerView recyclerUsuarios;
-    List<UsuarioModel> lista;
+    List<UsuarioRequest> lista;
     UsuarioAdapter adapter;
     TextView txtTitulo;
 
-    EditText edtNombre;
-    EditText edtCorreo;
+    EditText edtUsuario;
+    EditText edtPersona;
     EditText edtContra;
     FloatingActionButton btnAgregar;
     Button btnGuardar;
@@ -68,17 +69,17 @@ public class UsuarioAll extends Fragment {
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
 
-        lista = usuarioDAO.getUsuarios();
+        lista = usuarioDAO.getAllUsuarios();
         adapter = new UsuarioAdapter(getContext(), lista, new UsuarioAdapter.OnItemClickListener() { // Usa getContext()
 
             @Override
-            public void onEditarClick(UsuarioModel usuario) {
-                mostrarDialogEditar(usuario);
+            public void onEditarClick(int id) {
+                cambiarFragmento(new UsuarioCreate(), id, "editar");
             }
 
             @Override
-            public void onEliminarClick(UsuarioModel usuario) {
-                new AlertDialog.Builder(requireContext()).setTitle("¿Eliminar usuario?").setMessage("¿Estás seguro de que quieres eliminar a " + usuario.getNombre() + "?").setPositiveButton("Sí", (dialog, which) -> {
+            public void onEliminarClick(UsuarioRequest usuario) {
+                new AlertDialog.Builder(requireContext()).setTitle("¿Eliminar usuario?").setMessage("¿Estás seguro de que quieres eliminar a " + usuario.getUsuario() + "?").setPositiveButton("Sí", (dialog, which) -> {
                     eliminarUsuarioConRevertir(usuario);
                     recargarLista();
                 }).setNegativeButton("Cancelar", null).show();
@@ -87,102 +88,35 @@ public class UsuarioAll extends Fragment {
         recyclerUsuarios.setAdapter(adapter);
 
         btnAgregar = view.findViewById(R.id.btnAgregarUsuario);
-        btnAgregar.setOnClickListener(v -> mostrarDialogNuevoUsuario());
+        btnAgregar.setOnClickListener(v -> cambiarFragmento(new UsuarioCreate(), 0, "crear"));
 
     }
 
     private void recargarLista() {
         lista.clear();
-        lista.addAll(usuarioDAO.getUsuarios());
+        lista.addAll(usuarioDAO.getAllUsuarios());
         adapter.notifyDataSetChanged();
     }
 
-    private void mostrarDialogNuevoUsuario() {
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        View view = getLayoutInflater().inflate(R.layout.usuario_dialog, null);
-        builder.setView(view);
+    public void cambiarFragmento(Fragment fragmento, int id, String accion){
+        Bundle bund = new Bundle();
+        bund.putInt("id", id);
+        bund.putString("accion", accion);
+        fragmento.setArguments(bund);
 
-        txtTitulo = view.findViewById(R.id.txtTitulo);
-        edtNombre = view.findViewById(R.id.edtNuevoNombre);
-        edtCorreo = view.findViewById(R.id.edtNuevoCorreo);
-        edtContra = view.findViewById(R.id.edtNuevaContrasenia);
-        btnGuardar = view.findViewById(R.id.btnGuardarNuevo);
-        txtTitulo.setText(R.string.usuario_opc_agregar);
-
-        AlertDialog dialog = builder.create();
-
-        btnGuardar.setOnClickListener(v -> {
-            String nombre = edtNombre.getText().toString().trim();
-            String correo = edtCorreo.getText().toString().trim();
-            String contra = edtContra.getText().toString().trim();
-
-            if (!nombre.isEmpty() && !correo.isEmpty() && !contra.isEmpty()) {
-                UsuarioModel nuevo = new UsuarioModel(nombre, correo, contra, 1);
-
-                boolean insertado = usuarioDAO.addUsuario(nuevo);
-                if (insertado) {
-                    ToastUtil.show(requireContext(), "Usuario agregado", "success");
-                    recargarLista();
-                    dialog.dismiss();
-                } else {
-                    SnackbarUtil.show(requireView(), "Ocurrio algo!", "danger");
-                }
-            } else {
-                ToastUtil.show(requireContext(), "Completa todos los campos", "danger");
-            }
-        });
-
-        dialog.show();
+        FragmentManager manager = getFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.replace(R.id.fragment_container, fragmento);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 
-    private void mostrarDialogEditar(UsuarioModel usuario) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
-        View view = getLayoutInflater().inflate(R.layout.usuario_dialog, null);
-        builder.setView(view);
-
-        txtTitulo = view.findViewById(R.id.txtTitulo);
-        edtNombre = view.findViewById(R.id.edtNuevoNombre);
-        edtCorreo = view.findViewById(R.id.edtNuevoCorreo);
-        edtContra = view.findViewById(R.id.edtNuevaContrasenia);
-        btnGuardar = view.findViewById(R.id.btnGuardarNuevo);
-
-        txtTitulo.setText(R.string.usuario_opc_editar);
-        edtNombre.setText(usuario.getNombre());
-        edtCorreo.setText(usuario.getCorreo());
-        edtContra.setText(usuario.getContrasenia());
-
-        AlertDialog dialog = builder.create();
-
-        btnGuardar.setOnClickListener(v -> {
-            String nuevoNombre = edtNombre.getText().toString();
-            String nuevoCorreo = edtCorreo.getText().toString();
-            String nuevaContra = edtContra.getText().toString();
-
-            usuario.setNombre(nuevoNombre);
-            usuario.setCorreo(nuevoCorreo);
-            usuario.setContrasenia(nuevaContra);
-
-            boolean actualizado = usuarioDAO.updateUsuario(usuario);
-            if (actualizado) {
-                ToastUtil.show(requireContext(), "Usuario actualizado!", "success");
-                recargarLista();
-            } else {
-                ToastUtil.show(requireContext(), "Error al actualizar!", "danger");
-            }
-
-            dialog.dismiss();
-        });
-
-        dialog.show();
-    }
-
-    private void eliminarUsuarioConRevertir(UsuarioModel usuario) {
-        usuarioDAO.deleteUsuario(usuario.getId());
+    private void eliminarUsuarioConRevertir(UsuarioRequest usuario) {
+        usuarioDAO.deleteUsuario(usuario.getIdUsuario());
         recargarLista();
 
         Snackbar.make(requireView(), "Usuario eliminado", Snackbar.LENGTH_LONG).setAction("Deshacer", v -> {
-            usuario.setEstado(1);
-            usuarioDAO.updateUsuario(usuario);
+            usuarioDAO.recoverUsuario(usuario.getIdUsuario());
             recargarLista();
             ToastUtil.show(requireContext(), "Se recuperó el usuario", "success"); // Usar requireContext()
         }).show();
