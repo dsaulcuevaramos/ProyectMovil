@@ -56,7 +56,6 @@ public class RegistroUsuario extends AppCompatActivity {
         personaDAO = new PersonaDAO(this);
         usuarioDAO = new UsuarioDAO(this);
 
-        actvFacultad = findViewById(R.id.actv_facultad_registrar);
         inicializarVistas();
         cargarFacultades();
         btnRegistrar.setOnClickListener(v ->{
@@ -107,7 +106,7 @@ public class RegistroUsuario extends AppCompatActivity {
         tilContrasenia = findViewById(R.id.til_contrasenia_registrar);
         tilConfirmarContrasenia = findViewById(R.id.til_confirmar_contrasenia_registrar);
 
-        actvFacultad = findViewById(R.id.actv_facultad_gestionar);
+        actvFacultad = findViewById(R.id.actv_facultad_registrar);
 
         btnRegistrar = findViewById(R.id.btn_registrar);
     }
