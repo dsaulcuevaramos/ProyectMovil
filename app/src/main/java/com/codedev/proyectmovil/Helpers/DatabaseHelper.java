@@ -6,8 +6,11 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
 
+import com.codedev.proyectmovil.Helpers.Clase.ClaseTable;
 import com.codedev.proyectmovil.Helpers.Cursos.CursosTable;
+import com.codedev.proyectmovil.Helpers.DetalleClase.DetalleClaseTable;
 import com.codedev.proyectmovil.Helpers.Facultad.FacultadTable;
+import com.codedev.proyectmovil.Helpers.Periodo.PeriodoTable;
 import com.codedev.proyectmovil.Helpers.Persona.PersonaTable;
 import com.codedev.proyectmovil.Helpers.Rol.RolTable;
 import com.codedev.proyectmovil.Helpers.Usuario.UsuarioTable;
@@ -27,6 +30,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(PersonaTable.SQL_CREATE);
         db.execSQL(UsuarioTable.SQL_CREATE);
         db.execSQL(CursosTable.SQL_CREATE);
+        db.execSQL(PeriodoTable.SQL_CREATE);
+        db.execSQL(ClaseTable.SQL_CREATE);
+        db.execSQL(DetalleClaseTable.SQL_CREATE);
         insertarFacultadesIniciales(db);
     }
 
@@ -37,6 +43,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(PersonaTable.SQL_DROP);
         db.execSQL(UsuarioTable.SQL_DROP);
         db.execSQL(CursosTable.SQL_DROP);
+        db.execSQL(PeriodoTable.SQL_DROP);
+        db.execSQL(ClaseTable.SQL_DROP);
+        db.execSQL(DetalleClaseTable.SQL_DROP);
         onCreate(db);
     }
 
