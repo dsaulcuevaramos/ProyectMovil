@@ -62,6 +62,14 @@
     <string name="asistencia_estado_text">Activa</string>
     <string name="asistencia_crear_nuevo_btn">Crear nueva asistencia</string>
     <string name="asistencia_icono_descripcion">Icono de asistencia</string>
+    <string name="login_titulo">Bienvenido</string>
+    <string name="login_mensaje">Inicia sesión para continuar</string>
+    <string name="login_usuario_hint">Usuario</string>
+    <string name="login_olvidar_contrasenia_text">¿Olvidaste tu contraseña?</string>
+    <string name="login_sesion_btn">Iniciar Sesión</string>
+    <string name="login_cuenta_text">¿No tienes una cuenta?</string>
+    <string name="login_ir_a_registro_text">Regístrate</string>
+    <string name="login_contrasenia_hint">Contraseña</string>
 
     >>>>>>> DiegoDev
 </resources>

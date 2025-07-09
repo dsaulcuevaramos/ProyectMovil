@@ -25,8 +25,11 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        findViewById(R.id.btnPulsar).setOnClickListener(view -> {
+        findViewById(R.id.btn_login).setOnClickListener(view -> {
             presiona(view);
+        });
+        findViewById(R.id.tv_registrarse).setOnClickListener(view -> {
+            registro(view);
         });
     }
 
@@ -39,7 +42,6 @@ public class MainActivity extends AppCompatActivity {
 
     public void registro(View view){
         Intent i = new Intent(this, RegistroUsuario.class);
-
         startActivity(i);
     }
 }
