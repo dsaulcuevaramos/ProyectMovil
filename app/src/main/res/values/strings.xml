@@ -55,6 +55,13 @@
 
     <string name="persona_btn_agregar">Agregar Persona</string>
     <string name="persona_btn_guardar_form">Guardar Persona</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <!--    Asistencia-->
+    <string name="asistencia_estado_text">Activa</string>
+    <string name="asistencia_crear_nuevo_btn">Crear nueva asistencia</string>
+    <string name="asistencia_icono_descripcion">Icono de asistencia</string>
 
     >>>>>>> DiegoDev
 </resources>

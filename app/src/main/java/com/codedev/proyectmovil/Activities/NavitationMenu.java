@@ -11,6 +11,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.fragment.app.Fragment;
 
+import com.codedev.proyectmovil.Fragments.Asistencia.CursoList;
 import com.codedev.proyectmovil.Fragments.Configuracion.ConfiguracionMenu;
 import com.codedev.proyectmovil.Fragments.CursosAll;
 import com.codedev.proyectmovil.Fragments.Usuario.UsuarioAll;
@@ -41,7 +42,7 @@ public class NavitationMenu extends AppCompatActivity {
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.fragment_container, new UsuarioAll())
+                    .replace(R.id.fragment_container, new CursoList())
                     .commit();
         }
     }
@@ -52,12 +53,12 @@ public class NavitationMenu extends AppCompatActivity {
                 public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                     Fragment selectedFragment = null;
 
-                    int itemId = item.getItemId(); // Obtén el ID del elemento seleccionado
+                    int itemId = item.getItemId();
 
                     if (itemId == R.id.navigation_asistencia) {
-                        selectedFragment = new UsuarioAll();
+                        selectedFragment = new CursoList();
                     } else if (itemId == R.id.navigation_profesor) {
-                        selectedFragment = new CursosAll();
+                        selectedFragment = new CursoList();
                     } else if (itemId == R.id.navigation_alumno) {
                         selectedFragment = new UsuarioAll();
                     } else if (itemId == R.id.navigation_perfil) {

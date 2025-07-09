@@ -13,7 +13,7 @@
     <item
         android:id="@+id/navigation_alumno"
         android:icon="@drawable/ic_school"
-        android:title="Alumno" />
+        android:title="Mis alumnos" />
 
     <item
         android:id="@+id/navigation_perfil"
