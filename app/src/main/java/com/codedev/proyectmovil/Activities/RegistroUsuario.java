@@ -1,5 +1,6 @@
 package com.codedev.proyectmovil.Activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -168,6 +169,8 @@ public class RegistroUsuario extends AppCompatActivity {
             if (registroExitoso != null) {
                 ToastUtil.show(this, "Usuario registrado exitosamente!.", "success");
 
+                Intent i = new Intent(this, MainActivity.class);
+                startActivity(i);
             } else {
                 ToastUtil.show(this, "Error al registrar el usuario. Intenta de nuevo.", "danger");
             }

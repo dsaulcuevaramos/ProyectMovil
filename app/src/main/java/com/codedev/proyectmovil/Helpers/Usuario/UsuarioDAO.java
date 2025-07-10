@@ -80,15 +80,36 @@ public class UsuarioDAO {
 
     public UsuarioModel getUsuarioById(int id) {
         try (SQLiteDatabase db = this.helper.getReadableDatabase()) {
-            UsuarioModel u = new UsuarioModel();
+            UsuarioModel u = null;
             Cursor cursor = db.rawQuery("SELECT * FROM " + UsuarioTable.TABLE_NAME + " WHERE " + UsuarioTable.COL_ESTADO + " = 1 AND " +
                     UsuarioTable.COL_ID + " = ?", new String[]{String.valueOf(id)});
             if (cursor.moveToFirst()) {
+                u = new UsuarioModel();
                 u.setId(cursor.getInt(cursor.getColumnIndexOrThrow(UsuarioTable.COL_ID)));
                 u.setUsuario(cursor.getString(cursor.getColumnIndexOrThrow(UsuarioTable.COL_USUARIO)));
                 u.setContrasenia(cursor.getString(cursor.getColumnIndexOrThrow(UsuarioTable.COL_CONTRASENIA)));
                 u.setPersona_id(cursor.getInt(cursor.getColumnIndexOrThrow(UsuarioTable.COL_PERSONA_ID)));
                 u.setRol_id(cursor.getInt(cursor.getColumnIndexOrThrow(UsuarioTable.COL_ROL_ID)));
+                u.setEstado(cursor.getInt(cursor.getColumnIndexOrThrow(UsuarioTable.COL_ESTADO)));
+            }
+            cursor.close();
+            return u;
+        }
+    }
+
+    public UsuarioRequest getUsuarioByAuthentication(String usuario, String password) {
+        try (SQLiteDatabase db = this.helper.getReadableDatabase()) {
+            UsuarioRequest u = null;
+
+            Cursor cursor = db.rawQuery("SELECT u.*, p." + PersonaTable.COL_IDFACULTAD + " AS idFacultad FROM " + UsuarioTable.TABLE_NAME + " u " +
+                    "JOIN " + PersonaTable.TABLE_NAME + " p ON u.persona_id = p.id " + " WHERE " + UsuarioTable.COL_USUARIO + " = ? AND " +
+                    UsuarioTable.COL_CONTRASENIA + " = ? AND u." + UsuarioTable.COL_ESTADO + " = 1", new String[]{usuario, password});
+            if (cursor.moveToFirst()) {
+                u = new UsuarioRequest();
+                u.setIdUsuario(cursor.getInt(cursor.getColumnIndexOrThrow(UsuarioTable.COL_ID)));
+                u.setUsuario(cursor.getString(cursor.getColumnIndexOrThrow(UsuarioTable.COL_USUARIO)));
+                u.setIdFacultad(cursor.getInt(cursor.getColumnIndexOrThrow("idFacultad")));
+                u.setIdRol(cursor.getInt(cursor.getColumnIndexOrThrow(UsuarioTable.COL_ROL_ID)));
                 u.setEstado(cursor.getInt(cursor.getColumnIndexOrThrow(UsuarioTable.COL_ESTADO)));
             }
             cursor.close();
@@ -122,23 +143,6 @@ public class UsuarioDAO {
                     uc.setFacultadNombre(cursor.getString(cursor.getColumnIndexOrThrow("facultad_nombre")));
                     listaUsuarios.add(uc);
                 } while (cursor.moveToNext());
-            }
-
-            FacultadDAO di = new FacultadDAO(c);
-            List<FacultadModel> li = di.getFacultad();
-            for (FacultadModel rol : li) {
-                Log.d("FACULTAD", "ID: " + rol.getId() + ", nombre: " + rol.getNombre());
-            }
-
-            RolDAO d = new RolDAO(c);
-            List<RolModel> l = d.getRol();
-            for (RolModel rol : l) {
-                Log.d("ROL", "ID: " + rol.getId() + ", nombre: " + rol.getNombre());
-            }
-
-            cursor = db.rawQuery("SELECT * FROM " + UsuarioTable.TABLE_NAME, null);
-            while (cursor.moveToNext()) {
-                Log.d("USUARIO", "ID: " + cursor.getInt(0) + ", Usuario: " + cursor.getString(1) + "rol: " + cursor.getString(5) + "Persona: " + cursor.getString(4));
             }
 
             cursor.close();

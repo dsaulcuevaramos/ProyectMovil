@@ -2,6 +2,8 @@ package com.codedev.proyectmovil.Models.Requests;
 
 public class UsuarioRequest {
     private int idUsuario;
+    private int idRol;
+    private int idFacultad;
     private String usuario;
     private String contrasenia;
     private String nombrePersona;
@@ -12,6 +14,22 @@ public class UsuarioRequest {
     private int estado;
 
     public UsuarioRequest(){}
+
+    public int getIdFacultad() {
+        return idFacultad;
+    }
+
+    public void setIdFacultad(int idFacultad) {
+        this.idFacultad = idFacultad;
+    }
+
+    public int getIdRol() {
+        return idRol;
+    }
+
+    public void setIdRol(int idRol) {
+        this.idRol = idRol;
+    }
 
     public int getIdUsuario() {
         return idUsuario;
