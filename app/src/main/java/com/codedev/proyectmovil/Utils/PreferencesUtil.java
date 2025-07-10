@@ -21,7 +21,7 @@ public class PreferencesUtil {
         pref.edit().remove(clave).apply();
     }
 
-    public static void cleanAllKeys(Context context){
+    public static void clearAllKeys(Context context){
         SharedPreferences pref = context.getSharedPreferences(PREFER_NAME,Context.MODE_PRIVATE);
         pref.edit().clear().apply();
     }

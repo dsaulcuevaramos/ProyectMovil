@@ -1,13 +1,13 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/menu_config"
-        android:icon="@drawable/outline_admin_panel_settings_24"
-        android:title="Configuración"
+        android:id="@+id/action_edit_profile"
+        android:icon="@android:drawable/ic_menu_edit"
+        android:title="Editar Perfil"
         app:showAsAction="never" />
     <item
-        android:id="@+id/menu_logout"
-        android:icon="@drawable/outline_assignment_ind_24"
+        android:id="@+id/action_logout"
+        android:icon="@drawable/ic_logout"
         android:title="Cerrar sesión"
         app:showAsAction="never" />
 </menu>

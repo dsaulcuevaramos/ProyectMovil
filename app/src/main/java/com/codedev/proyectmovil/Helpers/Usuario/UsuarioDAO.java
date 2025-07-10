@@ -117,6 +117,38 @@ public class UsuarioDAO {
         }
     }
 
+    public UsuarioRequest getUsuarioCompletoById(int id) {
+        try (SQLiteDatabase db = this.helper.getReadableDatabase()) {
+            List<UsuarioRequest> listaUsuarios = new ArrayList<>();
+            Cursor cursor = db.rawQuery("SELECT " +
+                    "u." + UsuarioTable.COL_ID + " AS usuario_id, u." + UsuarioTable.COL_USUARIO + ", " +
+                    "p." + PersonaTable.COL_NOMBRE + " AS persona_nombre, p." + PersonaTable.COL_APELLIDO + " AS persona_apellido, p." + PersonaTable.COL_CODIGO + " AS persona_codigo, " +
+                    "r." + RolTable.COL_NOMBRE + " AS rol_nombre, " +
+                    "f." + FacultadTable.COL_NOMBRE + " AS facultad_nombre " +
+                    "FROM " + UsuarioTable.TABLE_NAME + " u " +
+                    "JOIN " + PersonaTable.TABLE_NAME + " p ON u.persona_id = p.id " +
+                    "JOIN " + RolTable.TABLE_NAME + " r ON u." + UsuarioTable.COL_ROL_ID + " = r." + RolTable.COL_ID + " " +
+                    "JOIN " + FacultadTable.TABLE_NAME + " f ON p." + PersonaTable.COL_IDFACULTAD + " = f." + FacultadTable.COL_ID + " " +
+                    "WHERE u.estado = 1 AND u." + UsuarioTable.COL_ID + " = ?", new String[]{String.valueOf(id)});
+            UsuarioRequest uc = null;
+
+            if (cursor.moveToFirst()) {
+                uc = new UsuarioRequest();
+                uc.setIdUsuario(cursor.getInt(cursor.getColumnIndexOrThrow("usuario_id")));
+                uc.setUsuario(cursor.getString(cursor.getColumnIndexOrThrow(UsuarioTable.COL_USUARIO)));
+                uc.setNombrePersona(cursor.getString(cursor.getColumnIndexOrThrow("persona_nombre")));
+                uc.setApellidoPersona(cursor.getString(cursor.getColumnIndexOrThrow("persona_apellido")));
+                uc.setCodigoPersona(cursor.getString(cursor.getColumnIndexOrThrow("persona_codigo")));
+                uc.setRolNombre(cursor.getString(cursor.getColumnIndexOrThrow("rol_nombre")));
+                uc.setFacultadNombre(cursor.getString(cursor.getColumnIndexOrThrow("facultad_nombre")));
+                listaUsuarios.add(uc);
+            }
+
+            cursor.close();
+            return uc;
+        }
+    }
+
     public List<UsuarioRequest> getAllUsuarios() {
         try (SQLiteDatabase db = this.helper.getReadableDatabase()) {
             List<UsuarioRequest> listaUsuarios = new ArrayList<>();

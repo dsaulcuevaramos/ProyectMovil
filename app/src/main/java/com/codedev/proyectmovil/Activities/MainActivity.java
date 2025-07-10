@@ -36,6 +36,10 @@ public class MainActivity extends AppCompatActivity {
         });
         usuarioDAO = new UsuarioDAO(this);
 
+        if(!PreferencesUtil.getKey(this,"idUsuario").isEmpty()){
+            toMenu();
+        }
+
         txtUsuario = findViewById(R.id.tiet_usuario);
         txtContrasenia = findViewById(R.id.tiet_contrasenia);
         tilusuario = findViewById(R.id.til_usuario);
@@ -82,10 +86,15 @@ public class MainActivity extends AppCompatActivity {
             PreferencesUtil.saveKey(this, "idRol", String.valueOf(u.getIdRol()));
 
             ToastUtil.show(this, "Bienvenido " + u.getUsuario(), "success");
-            startActivity(new Intent(this, NavitationMenu.class));
+            toMenu();
         } else {
             ToastUtil.show(this, "Credenciales incorrectas", "error");
         }
+    }
+
+    public void toMenu(){
+        startActivity(new Intent(this, NavitationMenu.class));
+        finish();
     }
 
     public void toRegistro(View view){
