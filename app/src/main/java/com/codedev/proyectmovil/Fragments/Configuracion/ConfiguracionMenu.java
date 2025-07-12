@@ -17,13 +17,8 @@ import com.codedev.proyectmovil.Fragments.CursoFacultadesAll;
 import com.codedev.proyectmovil.Fragments.Usuario.UsuarioAll;
 import com.codedev.proyectmovil.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link ConfiguracionMenu#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class ConfiguracionMenu extends Fragment {
-    CardView carFacultad, carCurso, carusuario, carReporte;
+    CardView carFacultad, carCurso, carusuario, carReporte, carPeriodo;
     public ConfiguracionMenu() {
     }
 
@@ -48,7 +43,7 @@ public class ConfiguracionMenu extends Fragment {
         carCurso = view.findViewById(R.id.btnGestionCursos);
         carusuario = view.findViewById(R.id.btnGestionUsuarios);
         carReporte = view.findViewById(R.id.btnReportes);
-
+        carPeriodo = view.findViewById(R.id.btnPeriodo);
         cargarListeners();
     }
 
@@ -59,7 +54,9 @@ public class ConfiguracionMenu extends Fragment {
         carCurso.setOnClickListener( v ->{
             cambiarFragmento(new CursoFacultadesAll());
         });
-//        Agregar el resto de opciones
+        carPeriodo.setOnClickListener( v ->{
+            cambiarFragmento(new PeriodoAll());
+        });
     }
 
     public void cambiarFragmento(Fragment fragmento){
