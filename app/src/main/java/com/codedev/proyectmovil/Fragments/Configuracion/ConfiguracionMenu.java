@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.codedev.proyectmovil.Fragments.CursoFacultadesAll;
+import com.codedev.proyectmovil.Fragments.FacultadesAll;
 import com.codedev.proyectmovil.Fragments.Usuario.UsuarioAll;
 import com.codedev.proyectmovil.R;
 
@@ -53,6 +54,9 @@ public class ConfiguracionMenu extends Fragment {
     }
 
     public void cargarListeners(){
+        carFacultad.setOnClickListener(v->{
+            cambiarFragmento(new FacultadesAll());
+        });
         carusuario.setOnClickListener(v -> {
             cambiarFragmento(new UsuarioAll());
         });

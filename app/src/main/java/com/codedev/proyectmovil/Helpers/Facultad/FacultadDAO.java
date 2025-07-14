@@ -1,11 +1,13 @@
 package com.codedev.proyectmovil.Helpers.Facultad;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
 import com.codedev.proyectmovil.Helpers.DatabaseHelper;
 import com.codedev.proyectmovil.Models.FacultadModel;
+import com.codedev.proyectmovil.Models.PersonaModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,4 +39,60 @@ public class FacultadDAO {
             return listaFacultades;
         }
     }
+
+    public FacultadModel addFacultad(FacultadModel f){
+        try (SQLiteDatabase db = this.helper.getWritableDatabase()){
+            ContentValues values = new ContentValues();
+            values.put(FacultadTable.COL_CODIGO, f.getCodigo());
+            values.put(FacultadTable.COL_NOMBRE, f.getNombre());
+            values.put(FacultadTable.COL_ESTADO, 1);
+            long resultado = db.insert(FacultadTable.TABLE_NAME, null, values);
+            if (resultado != -1) {
+                f.setId((int) resultado);
+                return f;
+            } else {
+                return null;
+            }
+        }
+    }
+
+    public boolean updateFacultad(FacultadModel f){
+        try (SQLiteDatabase db = this.helper.getWritableDatabase()){
+            ContentValues values = new ContentValues();
+            values.put(FacultadTable.COL_CODIGO, f.getCodigo());
+            values.put(FacultadTable.COL_NOMBRE, f.getNombre());
+            values.put(FacultadTable.COL_ESTADO, f.getEstado());
+            long resultado = db.update(FacultadTable.TABLE_NAME, values, FacultadTable.COL_ID + "=?", new String[]{String.valueOf(f.getId())});
+            return resultado != -1;
+        }
+    }
+
+    public boolean deleteFacultad(int id){
+        try(SQLiteDatabase db = this.helper.getWritableDatabase()){
+            ContentValues values = new ContentValues();
+            values.put(FacultadTable.COL_ESTADO,0);
+            long filas = db.update(FacultadTable.TABLE_NAME,values, FacultadTable.COL_ID + " =?", new String[]{String.valueOf(id)});
+            return filas>0;
+        }
+    }
+
+    public PersonaModel getFacultadById(int id){
+        try(SQLiteDatabase db = this.helper.getReadableDatabase()){
+            Cursor cursor = db.rawQuery("SELECT * FROM " + FacultadTable.TABLE_NAME + " WHERE " + FacultadTable.COL_ESTADO + " = 1 AND " +
+                    FacultadTable.COL_ID + " = ?",  new String[]{String.valueOf(id)});
+
+            if (!cursor.moveToFirst()) {
+                cursor.close();
+                return null;
+            }
+            PersonaModel p = new PersonaModel();
+            p.setId(cursor.getInt(cursor.getColumnIndexOrThrow(FacultadTable.COL_ID)));
+            p.setCodigo(cursor.getString(cursor.getColumnIndexOrThrow(FacultadTable.COL_CODIGO)));
+            p.setNombre(cursor.getString(cursor.getColumnIndexOrThrow(FacultadTable.COL_NOMBRE)));
+            p.setEstado(cursor.getInt(cursor.getColumnIndexOrThrow(FacultadTable.COL_ESTADO)));
+            cursor.close();
+            return p;
+        }
+    }
+
 }

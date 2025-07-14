@@ -71,5 +71,14 @@
     <string name="login_ir_a_registro_text">Regístrate</string>
     <string name="login_contrasenia_hint">Contraseña</string>
 
-    >>>>>>> DiegoDev
+    <!--    Facultad-->
+    <string name="facultad_show_codigo">Código</string>
+    <string name="facultad_show_nombre">Nombre</string>
+    <string name="facultad_hint_codigo">Código</string>
+    <string name="facultad_hint_nombre">Nombre</string>
+    <string name="facultad_opc_agregar">Agregar Facultad</string>
+    <string name="facultad_opc_editar">Modificar Facultad</string>
+    <string name="facultad_btn_agregar">Agregar Facultad</string>
+    <string name="facultad_btn_guardar_form">Guardar Facultad</string>
+
 </resources>

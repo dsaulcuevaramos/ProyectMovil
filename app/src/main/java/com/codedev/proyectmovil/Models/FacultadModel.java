@@ -8,7 +8,7 @@ public class FacultadModel {
 
     public FacultadModel() {}
 
-    public FacultadModel(String nombre, int estado, String codigo) {
+    public FacultadModel( String codigo, String nombre, int estado) {
         this.nombre = nombre;
         this.estado = estado;
         this.codigo = codigo;
