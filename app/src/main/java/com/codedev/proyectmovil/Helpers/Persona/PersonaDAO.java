@@ -101,6 +101,28 @@ public class PersonaDAO {
         }
     }
 
+    public List<PersonaModel> getAllPersonasByRol(){
+        try (SQLiteDatabase db = this.helper.getReadableDatabase()){
+            List<PersonaModel> listaPersonas = new ArrayList<>();
+            Cursor cursor = db.rawQuery("SELECT * FROM " + PersonaTable.TABLE_NAME + " WHERE " + PersonaTable.COL_ESTADO + " = 1", null);
+
+            if (cursor.moveToFirst()) {
+                do {
+                    PersonaModel p = new PersonaModel();
+                    p.setId(cursor.getInt(cursor.getColumnIndexOrThrow(PersonaTable.COL_ID)));
+                    p.setCodigo(cursor.getString(cursor.getColumnIndexOrThrow(PersonaTable.COL_CODIGO)));
+                    p.setNombre(cursor.getString(cursor.getColumnIndexOrThrow(PersonaTable.COL_NOMBRE)));
+                    p.setApellido(cursor.getString(cursor.getColumnIndexOrThrow(PersonaTable.COL_APELLIDO)));
+                    p.setIdFacultad(cursor.getInt(cursor.getColumnIndexOrThrow(PersonaTable.COL_IDFACULTAD)));
+                    p.setEstado(cursor.getInt(cursor.getColumnIndexOrThrow(PersonaTable.COL_ESTADO)));
+                    listaPersonas.add(p);
+                } while (cursor.moveToNext());
+            }
+            cursor.close();
+            return listaPersonas;
+        }
+    }
+
     public List<PersonaModel> getBusquedaPersonas(String valor){
         try (SQLiteDatabase db = this.helper.getReadableDatabase()){
             List<PersonaModel> listaPersonas = new ArrayList<>();

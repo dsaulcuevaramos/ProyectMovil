@@ -76,6 +76,25 @@ public class PeriodoDAO {
         }
     }
 
+    public PeriodoModel getPeriodoById(int id) {
+        try (SQLiteDatabase db = this.helper.getReadableDatabase()) {
+            PeriodoModel p = null;
+            Cursor cursor = db.rawQuery("SELECT * FROM " + PeriodoTable.TABLE_NAME + " WHERE " + PeriodoTable.COL_ESTADO + " =1 AND "+ PeriodoTable.COL_ID + " =?",
+                    new String[]{String.valueOf(id)});
+            if (cursor.moveToFirst()) {
+                p = new PeriodoModel();
+                p.setId(cursor.getInt(cursor.getColumnIndexOrThrow(PeriodoTable.COL_ID)));
+                p.setCodigo(cursor.getString(cursor.getColumnIndexOrThrow(PeriodoTable.COL_CODIGO)));
+                p.setNombre(cursor.getString(cursor.getColumnIndexOrThrow(PeriodoTable.COL_NOMBRE)));
+                p.setActivo(cursor.getInt(cursor.getColumnIndexOrThrow(PeriodoTable.COL_ACTIVO)));
+                p.setEstado(cursor.getInt(cursor.getColumnIndexOrThrow(PeriodoTable.COL_ESTADO)));
+            }
+
+            cursor.close();
+            return p;
+        }
+    }
+
     public List<PeriodoModel> getAllPeriodos() {
         try (SQLiteDatabase db = this.helper.getReadableDatabase()) {
             List<PeriodoModel> lista = new ArrayList<>();

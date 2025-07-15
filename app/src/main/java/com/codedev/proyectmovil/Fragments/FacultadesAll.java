@@ -13,8 +13,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -63,7 +61,7 @@ public class FacultadesAll extends Fragment {
         ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
         setHasOptionsMenu(true);
 
-        listaFacultad = facultadDAO.getFacultad();
+        listaFacultad = facultadDAO.getAllFacultad();
         adapter = new FacultadAdapter(getContext(), listaFacultad, new FacultadAdapter.OnItemClickListener() {
 
             @Override
@@ -88,7 +86,7 @@ public class FacultadesAll extends Fragment {
 
     private void recargarLista() {
         listaFacultad.clear();
-        listaFacultad.addAll(facultadDAO.getFacultad());
+        listaFacultad.addAll(facultadDAO.getAllFacultad());
         adapter.notifyDataSetChanged();
     }
 
