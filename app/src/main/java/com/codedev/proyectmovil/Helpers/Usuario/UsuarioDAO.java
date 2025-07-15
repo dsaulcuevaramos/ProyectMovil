@@ -22,11 +22,9 @@ import java.util.List;
 
 public class UsuarioDAO {
     private DatabaseHelper helper;
-    private Context c;
 
     public UsuarioDAO(Context context) {
         helper = new DatabaseHelper(context);
-        c = context;
     }
 
     public UsuarioModel addUsuario(UsuarioModel u) {
