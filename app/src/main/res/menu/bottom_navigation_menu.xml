@@ -16,6 +16,11 @@
         android:title="Alumno" />
 
     <item
+        android:id="@+id/navigation_facultades"
+        android:icon="@drawable/ic_school"
+        android:title="Facultades" />
+
+    <item
         android:id="@+id/navigation_perfil"
         android:icon="@drawable/ic_perfil"
         android:title="Yo" />

@@ -9,6 +9,7 @@ import com.codedev.proyectmovil.Models.FacultadModel;
 
 import java.util.ArrayList;
 import java.util.List;
+import android.content.ContentValues;
 
 public class FacultadDAO {
     private DatabaseHelper helper;
@@ -17,25 +18,26 @@ public class FacultadDAO {
         helper = new DatabaseHelper(context);
     }
 
-    public List<FacultadModel> getFacultad() {
-        try (SQLiteDatabase db = this.helper.getReadableDatabase()) {
-            List<FacultadModel> listaFacultades = new ArrayList<>();
-            Cursor cursor = db.rawQuery("SELECT * FROM " + FacultadTable.TABLE_NAME + " WHERE " + FacultadTable.COL_ESTADO + " = 1", null);
+    public List<FacultadModel> getFacultades() {
+        List<FacultadModel> listaFacultades = new ArrayList<>();
+        try (SQLiteDatabase db = helper.getReadableDatabase()) {
+            Cursor cursor = db.rawQuery(
+                    "SELECT * FROM " + FacultadTable.TABLE_NAME +
+                            " WHERE " + FacultadTable.COL_ESTADO + " = 1", null);
 
             if (cursor.moveToFirst()) {
                 do {
-                    FacultadModel f = new FacultadModel();
-                    f.setId(cursor.getInt(cursor.getColumnIndexOrThrow(FacultadTable.COL_ID)));
-                    f.setCodigo(cursor.getString(cursor.getColumnIndexOrThrow(FacultadTable.COL_CODIGO)));
-                    f.setNombre(cursor.getString(cursor.getColumnIndexOrThrow(FacultadTable.COL_NOMBRE)));
-                    f.setEstado(cursor.getInt(cursor.getColumnIndexOrThrow(FacultadTable.COL_ESTADO)));
-                    listaFacultades.add(f);
+                    FacultadModel facultad = new FacultadModel();
+                    facultad.setId(cursor.getInt(cursor.getColumnIndexOrThrow(FacultadTable.COL_ID)));
+                    facultad.setCodigo(cursor.getString(cursor.getColumnIndexOrThrow(FacultadTable.COL_CODIGO)));
+                    facultad.setNombre(cursor.getString(cursor.getColumnIndexOrThrow(FacultadTable.COL_NOMBRE)));
+                    facultad.setEstado(cursor.getInt(cursor.getColumnIndexOrThrow(FacultadTable.COL_ESTADO)));
+                    listaFacultades.add(facultad);
                 } while (cursor.moveToNext());
             }
-
             cursor.close();
-            return listaFacultades;
         }
+        return listaFacultades;
     }
 
     public boolean addFacultad(FacultadModel facultadModel) {
@@ -71,28 +73,6 @@ public class FacultadDAO {
                     new String[]{String.valueOf(id)});
             return filas > 0;
         }
-    }
-
-    public List<FacultadModel> getFacultades() {
-        List<FacultadModel> listaFacultades = new ArrayList<>();
-        try (SQLiteDatabase db = helper.getReadableDatabase()) {
-            Cursor cursor = db.rawQuery(
-                    "SELECT * FROM " + FacultadTable.TABLE_NAME +
-                            " WHERE " + FacultadTable.COL_ESTADO + " = 1", null);
-
-            if (cursor.moveToFirst()) {
-                do {
-                    FacultadModel facultad = new FacultadModel();
-                    facultad.setId(cursor.getInt(cursor.getColumnIndexOrThrow(FacultadTable.COL_ID)));
-                    facultad.setCodigo(cursor.getString(cursor.getColumnIndexOrThrow(FacultadTable.COL_CODIGO)));
-                    facultad.setNombre(cursor.getString(cursor.getColumnIndexOrThrow(FacultadTable.COL_NOMBRE)));
-                    facultad.setEstado(cursor.getInt(cursor.getColumnIndexOrThrow(FacultadTable.COL_ESTADO)));
-                    listaFacultades.add(facultad);
-                } while (cursor.moveToNext());
-            }
-            cursor.close();
-        }
-        return listaFacultades;
     }
 
     public FacultadModel getFacultadById(int id) {

@@ -60,7 +60,9 @@ public class NavitationMenu extends AppCompatActivity {
                         selectedFragment = new CursosAll();
                     } else if (itemId == R.id.navigation_alumno) {
                         selectedFragment = new UsuarioAll();
-                    } else if (itemId == R.id.navigation_perfil) {
+                    } else if (itemId == R.id.navigation_facultades) {
+                        selectedFragment = new com.codedev.proyectmovil.Fragments.FacultadAll();
+                    }else if (itemId == R.id.navigation_perfil) {
                         selectedFragment = new CursosAll();
                     } else if (itemId == R.id.navigation_menu) {
                         selectedFragment = new ConfiguracionMenu();
