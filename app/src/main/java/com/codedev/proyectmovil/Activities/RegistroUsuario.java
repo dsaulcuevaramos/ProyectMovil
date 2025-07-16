@@ -78,7 +78,7 @@ public class RegistroUsuario extends AppCompatActivity {
     }
 
     private void cargarFacultades(){
-        listafacultades = facultadDAO.getFacultad();
+        listafacultades = facultadDAO.getAllFacultad();
 
         List<String> nombres = new ArrayList<>();
         for(FacultadModel model: listafacultades){

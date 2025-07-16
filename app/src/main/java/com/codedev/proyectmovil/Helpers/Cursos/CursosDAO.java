@@ -15,11 +15,12 @@ import java.util.List;
 public class CursosDAO {
     private DatabaseHelper helper;
 
-    public  CursosDAO(Context context){
+    public CursosDAO(Context context) {
         helper = new DatabaseHelper(context);
     }
-    public boolean addCursos(CursosModel cursosModel){
-        try (SQLiteDatabase db = this.helper.getWritableDatabase()){
+
+    public boolean addCursos(CursosModel cursosModel) {
+        try (SQLiteDatabase db = this.helper.getWritableDatabase()) {
             ContentValues values = new ContentValues();
             values.put(CursosTable.COL_NOMBRE, cursosModel.getNombre());
             values.put(CursosTable.COL_CODIGO, cursosModel.getCodigo());
@@ -30,8 +31,8 @@ public class CursosDAO {
         }
     }
 
-    public boolean updateCursos(CursosModel cursosModel){
-        try (SQLiteDatabase db = this.helper.getWritableDatabase()){
+    public boolean updateCursos(CursosModel cursosModel) {
+        try (SQLiteDatabase db = this.helper.getWritableDatabase()) {
             ContentValues values = new ContentValues();
             values.put(CursosTable.COL_NOMBRE, cursosModel.getNombre());
             values.put(CursosTable.COL_CODIGO, cursosModel.getCodigo());
@@ -42,19 +43,40 @@ public class CursosDAO {
         }
     }
 
-    public boolean deleteCursos(int id){
-        try (SQLiteDatabase db = this.helper.getWritableDatabase()){
+    public boolean deleteCursos(int id) {
+        try (SQLiteDatabase db = this.helper.getWritableDatabase()) {
             ContentValues values = new ContentValues();
             values.put(CursosTable.COL_ESTADO, 0);
-            long filas = db.update( CursosTable.TABLE_NAME,values, CursosTable.COL_ID+ " =?", new String[]{String.valueOf(id)});
+            long filas = db.update(CursosTable.TABLE_NAME, values, CursosTable.COL_ID + " =?", new String[]{String.valueOf(id)});
             return filas > 0;
         }
     }
 
-    public List<CursosModel> getCursos(){
-        try (SQLiteDatabase db = this.helper.getReadableDatabase()){
+    public CursosModel getCursoById(int id) {
+        try (SQLiteDatabase db = this.helper.getReadableDatabase()) {
             List<CursosModel> listaCursos = new ArrayList<>();
-            Cursor cursor = db.rawQuery("SELECT * FROM " + CursosTable.TABLE_NAME+ " WHERE " + CursosTable.COL_ESTADO+ " = 1", null);
+            Cursor cursor = db.rawQuery("SELECT * FROM " + CursosTable.TABLE_NAME + " WHERE " + CursosTable.COL_ESTADO + " = 1 AND " + CursosTable.COL_ID + " =?",
+                    new String[]{String.valueOf(id)});
+
+            CursosModel c = null;
+
+            if (cursor.moveToFirst()) {
+                c = new CursosModel();
+                c.setId(cursor.getInt(cursor.getColumnIndexOrThrow(CursosTable.COL_ID)));
+                c.setNombre(cursor.getString(cursor.getColumnIndexOrThrow(CursosTable.COL_NOMBRE)));
+                c.setCodigo(cursor.getString(cursor.getColumnIndexOrThrow(CursosTable.COL_CODIGO)));
+                c.setIdFacultad(cursor.getInt(cursor.getColumnIndexOrThrow(CursosTable.COL_IDFACULTAD)));
+                c.setEstado(cursor.getInt(cursor.getColumnIndexOrThrow(CursosTable.COL_ESTADO)));
+            }
+            cursor.close();
+            return c;
+        }
+    }
+
+    public List<CursosModel> getCursos() {
+        try (SQLiteDatabase db = this.helper.getReadableDatabase()) {
+            List<CursosModel> listaCursos = new ArrayList<>();
+            Cursor cursor = db.rawQuery("SELECT * FROM " + CursosTable.TABLE_NAME + " WHERE " + CursosTable.COL_ESTADO + " = 1", null);
 
             if (cursor != null && cursor.moveToFirst()) {
                 do {
@@ -67,18 +89,14 @@ public class CursosDAO {
                     listaCursos.add(cursosModel);
                 } while (cursor.moveToNext());
             }
-            Log.d("CursosDAO", "Cantidad de cursos encontrados: " + listaCursos.size());
-            for (CursosModel c : listaCursos) {
-                Log.d("CursosDAO", c.getNombre() + " - " + c.getCodigo());
-            }
             cursor.close();
             return listaCursos;
         }
     }
 
-    public List<CursosModel> getCursosPorFacultad(int idFacultad){
+    public List<CursosModel> getCursosPorFacultad(int idFacultad) {
         List<CursosModel> listaCursos = new ArrayList<>();
-        try (SQLiteDatabase db = this.helper.getReadableDatabase()){
+        try (SQLiteDatabase db = this.helper.getReadableDatabase()) {
             Cursor cursor = db.rawQuery(
                     "SELECT * FROM " + CursosTable.TABLE_NAME +
                             " WHERE " + CursosTable.COL_ESTADO + " = 1 AND " +

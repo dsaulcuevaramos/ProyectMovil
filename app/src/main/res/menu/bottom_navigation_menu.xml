@@ -11,9 +11,9 @@
         android:title="Profesor" />
 
     <item
-        android:id="@+id/navigation_alumno"
+        android:id="@+id/navigation_clase"
         android:icon="@drawable/ic_school"
-        android:title="Mis alumnos" />
+        android:title="Mis clases" />
 
     <item
         android:id="@+id/navigation_perfil"

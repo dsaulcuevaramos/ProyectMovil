@@ -19,7 +19,7 @@ public class FacultadDAO {
         helper = new DatabaseHelper(context);
     }
 
-    public List<FacultadModel> getFacultad(){
+    public List<FacultadModel> getAllFacultad(){
         try (SQLiteDatabase db = this.helper.getReadableDatabase()){
             List<FacultadModel> listaFacultades = new ArrayList<>();
             Cursor cursor = db.rawQuery("SELECT * FROM " + FacultadTable.TABLE_NAME + " WHERE " + FacultadTable.COL_ESTADO + " = 1", null);
@@ -73,25 +73,6 @@ public class FacultadDAO {
             values.put(FacultadTable.COL_ESTADO,0);
             long filas = db.update(FacultadTable.TABLE_NAME,values, FacultadTable.COL_ID + " =?", new String[]{String.valueOf(id)});
             return filas>0;
-        }
-    }
-
-    public PersonaModel getFacultadById(int id){
-        try(SQLiteDatabase db = this.helper.getReadableDatabase()){
-            Cursor cursor = db.rawQuery("SELECT * FROM " + FacultadTable.TABLE_NAME + " WHERE " + FacultadTable.COL_ESTADO + " = 1 AND " +
-                    FacultadTable.COL_ID + " = ?",  new String[]{String.valueOf(id)});
-
-            if (!cursor.moveToFirst()) {
-                cursor.close();
-                return null;
-            }
-            PersonaModel p = new PersonaModel();
-            p.setId(cursor.getInt(cursor.getColumnIndexOrThrow(FacultadTable.COL_ID)));
-            p.setCodigo(cursor.getString(cursor.getColumnIndexOrThrow(FacultadTable.COL_CODIGO)));
-            p.setNombre(cursor.getString(cursor.getColumnIndexOrThrow(FacultadTable.COL_NOMBRE)));
-            p.setEstado(cursor.getInt(cursor.getColumnIndexOrThrow(FacultadTable.COL_ESTADO)));
-            cursor.close();
-            return p;
         }
     }
 

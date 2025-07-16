@@ -27,7 +27,6 @@ import com.codedev.proyectmovil.Models.UsuarioModel;
 import com.codedev.proyectmovil.R;
 import com.codedev.proyectmovil.Utils.ToastUtil;
 import com.google.android.material.appbar.MaterialToolbar;
-import com.google.android.material.button.MaterialButton;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
@@ -154,7 +153,7 @@ public class UsuarioCreate extends Fragment {
         }
     }
     private void cargarFacultades(){
-        listafacultades = facultadDAO.getFacultad();
+        listafacultades = facultadDAO.getAllFacultad();
 
         List<String> nombres = new ArrayList<>();
         for(FacultadModel model: listafacultades){
