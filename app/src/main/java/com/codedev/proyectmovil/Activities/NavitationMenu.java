@@ -15,6 +15,7 @@ import com.codedev.proyectmovil.Fragments.Asistencia.CursoList;
 import com.codedev.proyectmovil.Fragments.Configuracion.ConfiguracionMenu;
 import com.codedev.proyectmovil.Fragments.MiClase.PeriodoList;
 import com.codedev.proyectmovil.Fragments.Perfil;
+import com.codedev.proyectmovil.Fragments.PersonaAll;
 import com.codedev.proyectmovil.Fragments.Usuario.UsuarioAll;
 import com.codedev.proyectmovil.R;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -59,7 +60,7 @@ public class NavitationMenu extends AppCompatActivity {
                     if (itemId == R.id.navigation_asistencia) {
                         selectedFragment = new CursoList();
                     } else if (itemId == R.id.navigation_profesor) {
-                        selectedFragment = new CursoList();
+                        selectedFragment = new PersonaAll();
                     } else if (itemId == R.id.navigation_clase) {
                         selectedFragment = new PeriodoList();
                     } else if (itemId == R.id.navigation_perfil) {
