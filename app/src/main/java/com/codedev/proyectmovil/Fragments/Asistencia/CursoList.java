@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.codedev.proyectmovil.Adapters.CursosAdapter;
 import com.codedev.proyectmovil.Helpers.Cursos.CursosDAO;
 import com.codedev.proyectmovil.Models.CursosModel;
 import com.codedev.proyectmovil.R;
+import com.codedev.proyectmovil.Utils.PreferencesUtil;
 
 import java.util.List;
 
@@ -24,6 +26,8 @@ public class CursoList extends Fragment {
     private RecyclerView recyclerACursos;
     private CursosAdapter adapter;
     private List<CursosModel> listaACursos;
+    private static final int ROL_ALUMNO = 2;
+    private int idRol;
 
     @Nullable
     @Override
@@ -38,6 +42,10 @@ public class CursoList extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        String rolStr = PreferencesUtil.getKey(requireContext(), "idRol");
+        idRol = TextUtils.isEmpty(rolStr) ? -1 : Integer.parseInt(rolStr);
+        boolean canEdit = (idRol != ROL_ALUMNO);
+
         cursosDAO = new CursosDAO(requireContext());
         recyclerACursos = view.findViewById(R.id.recyclerAsistenciaCursos);
         recyclerACursos.setLayoutManager(new LinearLayoutManager(requireContext()));
@@ -47,6 +55,7 @@ public class CursoList extends Fragment {
         adapter = new CursosAdapter(
                 requireContext(),
                 listaACursos,
+                canEdit,
                 new CursosAdapter.OnItemClickListener() {
                     @Override
                     public void onEditarClick(CursosModel cursos) {
