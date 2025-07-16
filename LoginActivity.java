@@ -33,14 +33,13 @@ public class LoginActivity extends AppCompatActivity {
             return;
         }
 
-        // Llamar al servidor para verificar usuario y contraseña
-        String url = "http://tuservidor.com/api/login"; // Cambia esta URL con tu endpoint
+        /
+        String url = "http://localhost.com/api/login"; 
         StringRequest stringRequest = new StringRequest(Request.Method.POST, url,
             response -> {
-                // Si el login es exitoso
-                // Manejar el inicio de sesión exitoso aquí
+             
             }, error -> {
-                // Si ocurre un error
+                
                 Toast.makeText(this, "Error en el inicio de sesión", Toast.LENGTH_SHORT).show();
             }) {
             @Override
