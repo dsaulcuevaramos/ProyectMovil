@@ -34,6 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(ClaseTable.SQL_CREATE);
         db.execSQL(DetalleClaseTable.SQL_CREATE);
         insertarFacultadesIniciales(db);
+        insertarAdminInicial(db);
     }
 
     @Override
@@ -73,6 +74,23 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 RolTable.COL_ID + ", " +
                 RolTable.COL_NOMBRE + ", " +
                 RolTable.COL_ESTADO + ") VALUES (3, 'Profesor', 1)");
+    }
+    private void insertarAdminInicial(SQLiteDatabase db) {
+        db.execSQL("INSERT INTO " + PersonaTable.TABLE_NAME +
+                " (" + PersonaTable.COL_NOMBRE + ", " +
+                PersonaTable.COL_APELLIDO + ", " +
+                PersonaTable.COL_CODIGO + ", " +
+                PersonaTable.COL_IDFACULTAD + ", " +
+                PersonaTable.COL_ESTADO + ") VALUES (" +
+                "'Admin','','ADMIN01',1,1)");
+
+        db.execSQL("INSERT INTO " + UsuarioTable.TABLE_NAME +
+                " (" + UsuarioTable.COL_USUARIO + ", " +
+                UsuarioTable.COL_CONTRASENIA + ", " +
+                UsuarioTable.COL_PERSONA_ID + ", " +
+                UsuarioTable.COL_ROL_ID + ", " +
+                UsuarioTable.COL_ESTADO + ") VALUES (" +
+                "'admin','admin', 1, 1, 1)");
     }
 }
 
