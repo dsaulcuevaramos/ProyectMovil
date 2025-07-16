@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 
 import com.codedev.proyectmovil.Fragments.Asistencia.CursoList;
 import com.codedev.proyectmovil.Fragments.Configuracion.ConfiguracionMenu;
+import com.codedev.proyectmovil.Fragments.CursoFacultadesAll;
 import com.codedev.proyectmovil.Fragments.DocenteFacultadesAll;
 import com.codedev.proyectmovil.Fragments.FacultadesAll;
 import com.codedev.proyectmovil.Fragments.MiClase.PeriodoList;
@@ -27,6 +28,7 @@ public class NavitationMenu extends AppCompatActivity {
 
 //    private Toolbar toolbar;
     private static final int ROL_ALUMNO = 2;
+    private int idRol;
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -44,16 +46,15 @@ public class NavitationMenu extends AppCompatActivity {
 //        setSupportActionBar(toolbar);
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         String rolStr = PreferencesUtil.getKey(this, "idRol");
-        int idRol = -1;
         try {
             idRol = Integer.parseInt(rolStr);
-        } catch (NumberFormatException ignored) {}
-        if (idRol == ROL_ALUMNO) {
-            bottomNavigationView.getMenu()
-                    .findItem(R.id.navigation_menu)
-                    .setVisible(false);
+        } catch (NumberFormatException e) {
+            idRol = -1;
         }
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        bottomNavigationView.getMenu()
+                .findItem(R.id.navigation_menu)
+                .setVisible(idRol != ROL_ALUMNO);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -72,7 +73,9 @@ public class NavitationMenu extends AppCompatActivity {
 
                     if (itemId == R.id.navigation_asistencia) {
                         selectedFragment = new CursoList();
-                    } else if (itemId == R.id.navigation_profesor) {
+                    } else if (itemId == R.id.navigation_profesor && idRol == ROL_ALUMNO) {
+                        selectedFragment = new CursoFacultadesAll();
+                    } else if (itemId == R.id.navigation_profesor){
                         selectedFragment = new DocenteFacultadesAll();
                     } else if (itemId == R.id.navigation_clase) {
                         selectedFragment = new PeriodoList();
