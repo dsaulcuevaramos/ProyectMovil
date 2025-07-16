@@ -28,6 +28,7 @@ public class NavitationMenu extends AppCompatActivity {
 
 //    private Toolbar toolbar;
     private static final int ROL_ALUMNO = 2;
+    private static final int ROL_ADMIN = 1;
     private int idRol;
     private BottomNavigationView bottomNavigationView;
 
@@ -51,10 +52,22 @@ public class NavitationMenu extends AppCompatActivity {
         } catch (NumberFormatException e) {
             idRol = -1;
         }
+
+        MenuItem profesorItem = bottomNavigationView.getMenu()
+                .findItem(R.id.navigation_profesor);
+        if (profesorItem != null) {
+            if (idRol == ROL_ALUMNO) {
+                profesorItem.setTitle("Alumno");
+            } else if(idRol ==ROL_ADMIN){
+                profesorItem.setTitle("Admin");
+            } else{
+                profesorItem.setTitle("Profesor");
+            }
+        }
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
         bottomNavigationView.getMenu()
                 .findItem(R.id.navigation_menu)
-                .setVisible(idRol != ROL_ALUMNO);
+                .setVisible(idRol == ROL_ADMIN);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
