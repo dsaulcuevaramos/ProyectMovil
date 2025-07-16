@@ -78,6 +78,11 @@ public class FacultadesAll extends Fragment {
                     recargarLista();
                 }).setNegativeButton("Cancelar", null).show();
             }
+
+            @Override
+            public void onItemClick(FacultadModel facultad) {
+                
+            }
         });
         recyclerFacultad.setAdapter(adapter);
 

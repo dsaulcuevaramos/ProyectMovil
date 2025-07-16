@@ -25,6 +25,7 @@ public class FacultadAdapter extends RecyclerView.Adapter<FacultadAdapter.ViewHo
     public interface OnItemClickListener {
         void onEditarClick(FacultadModel facultad);
         void onEliminarClick(FacultadModel facultad);
+        void onItemClick(FacultadModel facultad);
     }
 
     public FacultadAdapter(Context context, List<FacultadModel> listFacultad, OnItemClickListener listener) {
@@ -49,6 +50,7 @@ public class FacultadAdapter extends RecyclerView.Adapter<FacultadAdapter.ViewHo
             txtNombre.setText(f.getNombre());
             btnEditar.setOnClickListener(v -> listener.onEditarClick(f));
             btnEliminar.setOnClickListener(v -> listener.onEliminarClick(f));
+            itemView.setOnClickListener(v -> listener.onItemClick(f));
         }
     }
 
