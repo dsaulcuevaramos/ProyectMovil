@@ -18,11 +18,13 @@ import com.codedev.proyectmovil.Fragments.Perfil;
 import com.codedev.proyectmovil.Fragments.PersonaAll;
 import com.codedev.proyectmovil.Fragments.Usuario.UsuarioAll;
 import com.codedev.proyectmovil.R;
+import com.codedev.proyectmovil.Utils.PreferencesUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class NavitationMenu extends AppCompatActivity {
 
 //    private Toolbar toolbar;
+    private static final int ROL_ALUMNO = 2;
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -38,8 +40,17 @@ public class NavitationMenu extends AppCompatActivity {
 
 //        toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
-
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+        String rolStr = PreferencesUtil.getKey(this, "idRol");
+        int idRol = -1;
+        try {
+            idRol = Integer.parseInt(rolStr);
+        } catch (NumberFormatException ignored) {}
+        if (idRol == ROL_ALUMNO) {
+            bottomNavigationView.getMenu()
+                    .findItem(R.id.navigation_menu)
+                    .setVisible(false);
+        }
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
 
         if (savedInstanceState == null) {

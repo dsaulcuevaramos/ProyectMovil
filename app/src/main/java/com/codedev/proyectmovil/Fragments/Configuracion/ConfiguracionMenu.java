@@ -1,5 +1,6 @@
 package com.codedev.proyectmovil.Fragments.Configuracion;
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,8 +18,11 @@ import com.codedev.proyectmovil.Fragments.CursoFacultadesAll;
 import com.codedev.proyectmovil.Fragments.FacultadesAll;
 import com.codedev.proyectmovil.Fragments.Usuario.UsuarioAll;
 import com.codedev.proyectmovil.R;
+import com.codedev.proyectmovil.Utils.PreferencesUtil;
 
 public class ConfiguracionMenu extends Fragment {
+
+    private static final int ROL_ALUMNO = 1;
     CardView carFacultad, carCurso, carusuario, carReporte, carPeriodo;
     public ConfiguracionMenu() {
     }
@@ -45,6 +49,18 @@ public class ConfiguracionMenu extends Fragment {
         carusuario = view.findViewById(R.id.btnGestionUsuarios);
         carReporte = view.findViewById(R.id.btnReportes);
         carPeriodo = view.findViewById(R.id.btnPeriodo);
+        String rolStr = PreferencesUtil.getKey(requireContext(), "idRol");
+        int idRol = -1;
+        try {
+            idRol = Integer.parseInt(rolStr);
+        } catch (NumberFormatException ignored) {}
+
+        final int ROL_ALUMNO = 2;
+        if (idRol == ROL_ALUMNO) {
+            carusuario.setVisibility(View.GONE);
+        } else {
+            carusuario.setVisibility(View.VISIBLE);
+        }
         cargarListeners();
     }
 
