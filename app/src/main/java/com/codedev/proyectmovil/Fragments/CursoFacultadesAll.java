@@ -1,41 +1,78 @@
 package com.codedev.proyectmovil.Fragments;
 
-import androidx.fragment.app.Fragment;
-
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.codedev.proyectmovil.Adapters.FacultadAdapter;
+import com.codedev.proyectmovil.Helpers.Facultad.FacultadDAO;
+import com.codedev.proyectmovil.Models.FacultadModel;
 import com.codedev.proyectmovil.R;
 
+import java.util.List;
+
 public class CursoFacultadesAll extends Fragment {
-    TextView txtFacultad1, txtFacultad2;
+
+    private FacultadDAO facultadDAO;
+    private RecyclerView recyclerFacultades;
+    private FacultadAdapter adapter;
+    private List<FacultadModel> listaFacultades;
 
     public CursoFacultadesAll(){}
 
+    @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.cursos_facultades_fragment_all, container, false);
-
-        txtFacultad1 = view.findViewById(R.id.txtFacultad1);
-        txtFacultad2 = view.findViewById(R.id.txtFacultad2);
-
-        txtFacultad1.setOnClickListener(v -> abrirCursosDeFacultad(1));
-        txtFacultad2.setOnClickListener(v -> abrirCursosDeFacultad(2));
-
-        return view;
+    public View onCreateView(@NonNull LayoutInflater inflater,
+                             @Nullable ViewGroup container,
+                             @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.cursos_facultades_fragment_all, container, false);
     }
 
-    private void abrirCursosDeFacultad(int idFacultad) {
-        Fragment fragment = CursosAll.newInstance(idFacultad);
-        requireActivity().getSupportFragmentManager()
-                .beginTransaction()
-                .replace(R.id.fragment_container, fragment)
-                .addToBackStack(null)
-                .commit();
-    }
+    @Override
+    public void onViewCreated(@NonNull View view,
+                              @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
+        facultadDAO = new FacultadDAO(requireContext());
+        recyclerFacultades = view.findViewById(R.id.recyclerFacultades);
+        recyclerFacultades.setLayoutManager(new LinearLayoutManager(requireContext()));
+
+        // Carga dinámicamente todas las facultades activas
+        listaFacultades = facultadDAO.getAllFacultad();
+
+        adapter = new FacultadAdapter(
+                requireContext(),
+                listaFacultades,
+                new FacultadAdapter.OnItemClickListener() {
+                    @Override
+                    public void onEditarClick(FacultadModel facultad) {
+                        // No usamos editar aquí, pero podrías implementarlo
+                    }
+
+                    @Override
+                    public void onEliminarClick(FacultadModel facultad) {
+                        // Tampoco eliminamos en este listado
+                    }
+
+                    public void onItemClick(FacultadModel facultad) {
+                        // Cuando hacen clic en la facultad, abrimos CursosAll
+                        Fragment cursosFragment = CursosAll.newInstance(facultad.getId());
+                        requireActivity().getSupportFragmentManager()
+                                .beginTransaction()
+                                .replace(R.id.fragment_container, cursosFragment)
+                                .addToBackStack(null)
+                                .commit();
+                    }
+                }
+        );
+
+        recyclerFacultades.setAdapter(adapter);
+    }
 }
