@@ -47,6 +47,14 @@ public class PersonaAll extends Fragment {
 
     public PersonaAll(){}
 
+    public static PersonaAll newInstance(int idFacultad) {
+        PersonaAll fragment = new PersonaAll();
+        Bundle args = new Bundle();
+        args.putInt("idFacultad", idFacultad);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
@@ -61,11 +69,11 @@ public class PersonaAll extends Fragment {
         recyclerPersona = view.findViewById(R.id.recyclerPersona);
         recyclerPersona.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        toolbar = view.findViewById(R.id.toolbar);
-        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
-        setHasOptionsMenu(true);
+        if (getArguments() != null) {
+            idFacultad = getArguments().getInt("idFacultad", -1);
+        }
 
-        listaPersonaDocente = personaDAO.getAllPersonasByRolDocente();
+        listaPersonaDocente = personaDAO.getAllDoccenteByFacultad(idFacultad);
         adapter = new PersonaAdapter(getContext(), listaPersonaDocente, new PersonaAdapter.OnItemClickListener() {});
         recyclerPersona.setAdapter(adapter);
 

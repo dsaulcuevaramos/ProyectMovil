@@ -105,7 +105,7 @@ public class PersonaDAO {
         }
     }
 
-    public List<PersonaModel> getAllPersonasByRolDocente(){
+    public List<PersonaModel> getAllDoccenteByFacultad(int idFacultad){
         try (SQLiteDatabase db = this.helper.getReadableDatabase()){
             List<PersonaModel> listaPersonasDocentes = new ArrayList<>();
             Cursor cursor = db.rawQuery("SELECT " +
@@ -115,7 +115,8 @@ public class PersonaDAO {
                     "FROM " + UsuarioTable.TABLE_NAME + " u " +
                     "JOIN " + PersonaTable.TABLE_NAME + " p ON u.persona_id = p.id " +
                     "JOIN " + RolTable.TABLE_NAME + " r ON u." + UsuarioTable.COL_ROL_ID + " = r." + RolTable.COL_ID + " " +
-                    "WHERE u." + UsuarioTable.COL_ESTADO + " = 1 and r."+RolTable.COL_ID + " = 3", null);
+                    "WHERE u." + UsuarioTable.COL_ESTADO + " = 1 AND r."+RolTable.COL_ID + " = 3 " +
+                    "AND p."+PersonaTable.COL_IDFACULTAD + "= ?", new String[]{String.valueOf(idFacultad)});
 
             if (cursor.moveToFirst()) {
                 do {

@@ -14,7 +14,7 @@ import com.codedev.proyectmovil.R;
 
 import java.util.List;
 
-public class CursosAdapter extends RecyclerView.Adapter<CursosAdapter.ViewHolder> {
+public  class CursosAdapter extends RecyclerView.Adapter<CursosAdapter.ViewHolder> {
     private Context context;
     private List<CursosModel> cursos;
     private OnItemClickListener listener;
@@ -22,9 +22,10 @@ public class CursosAdapter extends RecyclerView.Adapter<CursosAdapter.ViewHolder
     public interface OnItemClickListener {
         void onEditarClick(CursosModel curso);
         void onEliminarClick(CursosModel curso);
+        void onItemClick(CursosModel curso);
     }
 
-    public CursosAdapter(Context context, List<CursosModel> cursos, OnItemClickListener listener) {
+    public CursosAdapter(Context context, List<CursosModel> cursos, CursosAdapter.OnItemClickListener listener) {
         this.context = context;
         this.cursos = cursos;
         this.listener = listener;

@@ -13,6 +13,8 @@ import androidx.fragment.app.Fragment;
 
 import com.codedev.proyectmovil.Fragments.Asistencia.CursoList;
 import com.codedev.proyectmovil.Fragments.Configuracion.ConfiguracionMenu;
+import com.codedev.proyectmovil.Fragments.DocenteFacultadesAll;
+import com.codedev.proyectmovil.Fragments.FacultadesAll;
 import com.codedev.proyectmovil.Fragments.MiClase.PeriodoList;
 import com.codedev.proyectmovil.Fragments.Perfil;
 import com.codedev.proyectmovil.Fragments.PersonaAll;
@@ -60,7 +62,7 @@ public class NavitationMenu extends AppCompatActivity {
                     if (itemId == R.id.navigation_asistencia) {
                         selectedFragment = new CursoList();
                     } else if (itemId == R.id.navigation_profesor) {
-                        selectedFragment = new PersonaAll();
+                        selectedFragment = new DocenteFacultadesAll();
                     } else if (itemId == R.id.navigation_clase) {
                         selectedFragment = new PeriodoList();
                     } else if (itemId == R.id.navigation_perfil) {

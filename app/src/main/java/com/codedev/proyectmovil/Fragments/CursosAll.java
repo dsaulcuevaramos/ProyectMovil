@@ -84,6 +84,11 @@ public class CursosAll extends Fragment {
                     recargarLista();
                 }).setNegativeButton("Cancelar", null).show();
             }
+
+            @Override
+            public void onItemClick(CursosModel cursoModel) {
+
+            }
         });
         recyclerView.setAdapter(adapter);
         btnAgregar = view.findViewById(R.id.btnAgregarCurso);
