@@ -45,7 +45,7 @@ public class CursoFacultadesAll extends Fragment {
         recyclerFacultades.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         // Carga dinámicamente todas las facultades activas
-        listaFacultades = facultadDAO.getFacultad();
+        listaFacultades = facultadDAO.getAllFacultad();
 
         adapter = new FacultadAdapter(
                 requireContext(),
