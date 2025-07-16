@@ -21,11 +21,9 @@ public class PersonaAdapter extends RecyclerView.Adapter<PersonaAdapter.ViewHold
     private OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onEditarClick(PersonaModel persona);
-        void onEliminarClick(PersonaModel persona);
     }
 
-    public PersonaAdapter(Context context, List<PersonaModel> listPersonas, OnItemClickListener listener) {
+    public PersonaAdapter(Context context, List<PersonaModel> listPersonas, PersonaAdapter.OnItemClickListener listener) {
         this.context = context;
         this.listPersonas = listPersonas;
         this.listener = listener;
@@ -33,22 +31,18 @@ public class PersonaAdapter extends RecyclerView.Adapter<PersonaAdapter.ViewHold
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         TextView  txtCodigo, txtNombre, txtApellido;
-        ImageButton btnEditar, btnEliminar;
+
 
         public ViewHolder(View itemView){
             super(itemView);
             txtCodigo = itemView.findViewById(R.id.txtCodigoPersona);
             txtNombre = itemView.findViewById(R.id.txtNombrePersona);
             txtApellido = itemView.findViewById(R.id.txtApellidoPersona);
-            btnEditar = itemView.findViewById(R.id.btnEditarPersona);
-            btnEliminar = itemView.findViewById(R.id.btnEliminarPersona);
         }
         public void bind(final PersonaModel p, final OnItemClickListener listener){
             txtCodigo.setText(p.getCodigo());
             txtNombre.setText(p.getNombre());
             txtApellido.setText(p.getApellido());
-            btnEditar.setOnClickListener(v -> listener.onEditarClick(p));
-            btnEliminar.setOnClickListener(v -> listener.onEliminarClick(p));
         }
     }
 

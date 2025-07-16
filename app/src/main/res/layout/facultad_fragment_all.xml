@@ -9,7 +9,7 @@
     tools:context=".Fragments.FacultadesAll">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:id="@+id/appbarPersona"
+        android:id="@+id/appbarFacultad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?attr/colorSurface"

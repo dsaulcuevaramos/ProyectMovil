@@ -21,6 +21,7 @@ import com.codedev.proyectmovil.Adapters.CursosAdapter;
 import com.codedev.proyectmovil.Helpers.Cursos.CursosDAO;
 import com.codedev.proyectmovil.Models.CursosModel;
 import com.codedev.proyectmovil.R;
+import com.codedev.proyectmovil.Utils.PreferencesUtil;
 import com.codedev.proyectmovil.Utils.ToastUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
@@ -39,6 +40,7 @@ public class CursosAll extends Fragment {
     FloatingActionButton btnAgregar;
 
     private int idFacultad =-1;
+    private int idRol = -1;
 
     public CursosAll(){}
 
@@ -65,12 +67,18 @@ public class CursosAll extends Fragment {
         recyclerView = view.findViewById(R.id.recyclerCursos);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
+        String rolStr = PreferencesUtil.getKey(requireContext(), "idRol");
+        try {
+            idRol = Integer.parseInt(rolStr);
+        } catch (NumberFormatException ignored) {}
+        boolean canEdit = (idRol != 2); // 2 = ROL_ALUMNO
+
         if (getArguments() != null) {
             idFacultad = getArguments().getInt("idFacultad", -1);
         }
         //list = cursosDAO.getCursos();
         list = cursosDAO.getCursosPorFacultad(idFacultad);
-        adapter = new CursosAdapter(getContext(), list, new CursosAdapter.OnItemClickListener() {
+        adapter = new CursosAdapter(getContext(), list, canEdit, new CursosAdapter.OnItemClickListener() {
 
             @Override
             public void onEditarClick(CursosModel cursoModel) {
@@ -84,10 +92,20 @@ public class CursosAll extends Fragment {
                     recargarLista();
                 }).setNegativeButton("Cancelar", null).show();
             }
+
+            @Override
+            public void onItemClick(CursosModel cursoModel) {
+
+            }
         });
         recyclerView.setAdapter(adapter);
         btnAgregar = view.findViewById(R.id.btnAgregarCurso);
-        btnAgregar.setOnClickListener(v -> mostrarDialogNuevoCurso());
+        //btnAgregar.setOnClickListener(v -> mostrarDialogNuevoCurso());
+        if (canEdit) {
+            btnAgregar.setOnClickListener(v -> mostrarDialogNuevoCurso());
+        } else {
+            btnAgregar.setVisibility(View.GONE);
+        }
     }
 
     private void recargarLista() {

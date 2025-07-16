@@ -87,7 +87,7 @@ public class ClaseAll extends Fragment {
 
         lista = claseDAO.getClasesByPeriodo(idPeriodo);
 
-        adapter = new ClaseAdapter(getContext(), lista, new ClaseAdapter.OnItemClickListener() {
+        adapter = new ClaseAdapter(getContext(), lista , new ClaseAdapter.OnItemClickListener() {
             @Override
             public void onEditarClick(int id) {
                 cambiarFragmento(new ClaseCreate(), id, "editar");
@@ -109,6 +109,11 @@ public class ClaseAll extends Fragment {
             public void onAdministrarClick(int id) {
                 PreferencesUtil.saveKey(requireContext(), "idClase", String.valueOf(id));
                 toDetalleClase();
+            }
+
+            @Override
+            public void onItemClick(int idcurso) {
+
             }
         });
         recyclerClases.setAdapter(adapter);

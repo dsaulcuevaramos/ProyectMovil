@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.codedev.proyectmovil.Models.ClaseModel;
 import com.codedev.proyectmovil.Models.Requests.ClaseRequest;
 import com.codedev.proyectmovil.R;
 
@@ -17,6 +18,7 @@ import java.util.List;
 public class ClaseAdapter extends RecyclerView.Adapter<ClaseAdapter.ViewHolder> {
     private Context context;
     private List<ClaseRequest> clases;
+
     private ClaseAdapter.OnItemClickListener listener;
 
     public interface OnItemClickListener {
@@ -25,6 +27,8 @@ public class ClaseAdapter extends RecyclerView.Adapter<ClaseAdapter.ViewHolder> 
         void onEliminarClick(ClaseRequest clase);
 
         void onAdministrarClick(int id);
+
+        void onItemClick(int idcurso);
     }
 
     public ClaseAdapter(Context context, List<ClaseRequest> clases, ClaseAdapter.OnItemClickListener listener) {

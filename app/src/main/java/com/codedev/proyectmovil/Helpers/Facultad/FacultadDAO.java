@@ -76,4 +76,26 @@ public class FacultadDAO {
         }
     }
 
+    public FacultadModel getFacultadById(int id) {
+        try (SQLiteDatabase db = helper.getReadableDatabase()) {
+            Cursor c = db.rawQuery(
+                    "SELECT * FROM " + FacultadTable.TABLE_NAME +
+                            " WHERE " + FacultadTable.COL_ESTADO + " = 1 AND " +
+                            FacultadTable.COL_ID + " = ?",
+                    new String[]{ String.valueOf(id) }
+            );
+            if (!c.moveToFirst()) {
+                c.close();
+                return null;
+            }
+            FacultadModel f = new FacultadModel();
+            f.setId(c.getInt(c.getColumnIndexOrThrow(FacultadTable.COL_ID)));
+            f.setCodigo(c.getString(c.getColumnIndexOrThrow(FacultadTable.COL_CODIGO)));
+            f.setNombre(c.getString(c.getColumnIndexOrThrow(FacultadTable.COL_NOMBRE)));
+            f.setEstado(c.getInt(c.getColumnIndexOrThrow(FacultadTable.COL_ESTADO)));
+            c.close();
+            return f;
+        }
+    }
+
 }

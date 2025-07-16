@@ -14,19 +14,22 @@ import com.codedev.proyectmovil.R;
 
 import java.util.List;
 
-public class CursosAdapter extends RecyclerView.Adapter<CursosAdapter.ViewHolder> {
+public  class CursosAdapter extends RecyclerView.Adapter<CursosAdapter.ViewHolder> {
     private Context context;
     private List<CursosModel> cursos;
     private OnItemClickListener listener;
+    private boolean canEdit;
 
     public interface OnItemClickListener {
         void onEditarClick(CursosModel curso);
         void onEliminarClick(CursosModel curso);
+        void onItemClick(CursosModel curso);
     }
 
-    public CursosAdapter(Context context, List<CursosModel> cursos, OnItemClickListener listener) {
+    public CursosAdapter(Context context, List<CursosModel> cursos, boolean canEdit,CursosAdapter.OnItemClickListener listener) {
         this.context = context;
         this.cursos = cursos;
+        this.canEdit = canEdit;
         this.listener = listener;
     }
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -41,10 +44,19 @@ public class CursosAdapter extends RecyclerView.Adapter<CursosAdapter.ViewHolder
             btnEliminar = itemView.findViewById(R.id.btnEliminar);
         }
 
-        public void bind(final CursosModel u, final OnItemClickListener listener) {
+        public void bind(final CursosModel u, final OnItemClickListener listener, boolean canEdit) {
             txtNombre.setText(u.getNombre());
             txtCodigo.setText(u.getCodigo());
-            btnEditar.setOnClickListener(v -> listener.onEditarClick(u));
+
+            if (canEdit) {
+                btnEditar .setVisibility(View.VISIBLE);
+                btnEliminar.setVisibility(View.VISIBLE);
+            } else {
+                btnEditar .setVisibility(View.GONE);
+                btnEliminar.setVisibility(View.GONE);
+            }
+            itemView.setOnClickListener(v -> listener.onItemClick(u));
+            btnEditar .setOnClickListener(v -> listener.onEditarClick(u));
             btnEliminar.setOnClickListener(v -> listener.onEliminarClick(u));
         }
     }
@@ -57,7 +69,7 @@ public class CursosAdapter extends RecyclerView.Adapter<CursosAdapter.ViewHolder
 
     @Override
     public void onBindViewHolder(CursosAdapter.ViewHolder holder, int position) {
-        holder.bind(cursos.get(position), listener);
+        holder.bind(cursos.get(position), listener, canEdit);
     }
 
     @Override

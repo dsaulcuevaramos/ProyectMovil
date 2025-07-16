@@ -13,15 +13,23 @@ import androidx.fragment.app.Fragment;
 
 import com.codedev.proyectmovil.Fragments.Asistencia.CursoList;
 import com.codedev.proyectmovil.Fragments.Configuracion.ConfiguracionMenu;
+import com.codedev.proyectmovil.Fragments.CursoFacultadesAll;
+import com.codedev.proyectmovil.Fragments.DocenteFacultadesAll;
+import com.codedev.proyectmovil.Fragments.FacultadesAll;
 import com.codedev.proyectmovil.Fragments.MiClase.PeriodoList;
 import com.codedev.proyectmovil.Fragments.Perfil;
+import com.codedev.proyectmovil.Fragments.PersonaAll;
 import com.codedev.proyectmovil.Fragments.Usuario.UsuarioAll;
 import com.codedev.proyectmovil.R;
+import com.codedev.proyectmovil.Utils.PreferencesUtil;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class NavitationMenu extends AppCompatActivity {
 
 //    private Toolbar toolbar;
+    private static final int ROL_ALUMNO = 2;
+    private static final int ROL_ADMIN = 1;
+    private int idRol;
     private BottomNavigationView bottomNavigationView;
 
     @Override
@@ -37,9 +45,29 @@ public class NavitationMenu extends AppCompatActivity {
 
 //        toolbar = findViewById(R.id.toolbar);
 //        setSupportActionBar(toolbar);
-
         bottomNavigationView = findViewById(R.id.bottom_navigation);
+        String rolStr = PreferencesUtil.getKey(this, "idRol");
+        try {
+            idRol = Integer.parseInt(rolStr);
+        } catch (NumberFormatException e) {
+            idRol = -1;
+        }
+
+        MenuItem profesorItem = bottomNavigationView.getMenu()
+                .findItem(R.id.navigation_profesor);
+        if (profesorItem != null) {
+            if (idRol == ROL_ALUMNO) {
+                profesorItem.setTitle("Alumno");
+            } else if(idRol ==ROL_ADMIN){
+                profesorItem.setTitle("Admin");
+            } else{
+                profesorItem.setTitle("Profesor");
+            }
+        }
         bottomNavigationView.setOnNavigationItemSelectedListener(navListener);
+        bottomNavigationView.getMenu()
+                .findItem(R.id.navigation_menu)
+                .setVisible(idRol == ROL_ADMIN);
 
         if (savedInstanceState == null) {
             getSupportFragmentManager().beginTransaction()
@@ -58,8 +86,10 @@ public class NavitationMenu extends AppCompatActivity {
 
                     if (itemId == R.id.navigation_asistencia) {
                         selectedFragment = new CursoList();
-                    } else if (itemId == R.id.navigation_profesor) {
-                        selectedFragment = new CursoList();
+                    } else if (itemId == R.id.navigation_profesor && idRol == ROL_ALUMNO) {
+                        selectedFragment = new CursoFacultadesAll();
+                    } else if (itemId == R.id.navigation_profesor){
+                        selectedFragment = new DocenteFacultadesAll();
                     } else if (itemId == R.id.navigation_clase) {
                         selectedFragment = new PeriodoList();
                     } else if (itemId == R.id.navigation_perfil) {
