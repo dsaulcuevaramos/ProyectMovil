@@ -62,6 +62,6 @@ public class ClaseAsistenciaAdapter extends RecyclerView.Adapter<ClaseAsistencia
 
     @Override
     public int getItemCount() {
-        return 0;
+        return clasesAs.size();
     }
 }
