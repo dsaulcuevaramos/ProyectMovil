@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
     android:layout_marginTop="6dp"
+    android:layout_marginEnd="8dp"
     android:layout_marginBottom="6dp"
-    android:clickable="true"
-    android:focusable="true"
     app:cardCornerRadius="16dp"
     app:cardElevation="2dp">
 
@@ -20,21 +17,21 @@
         android:padding="16dp">
 
         <ImageView
-            android:id="@+id/icon_curso"
+            android:id="@+id/icon_clase"
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_alignParentStart="true"
             android:layout_centerVertical="true"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/ic_school"
+            android:src="@drawable/ic_class"
             app:tint="?attr/colorPrimary" />
 
         <LinearLayout
+            android:id="@+id/text_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/icon_go"
-            android:layout_toEndOf="@id/icon_curso"
+            android:layout_toEndOf="@id/icon_clase"
             android:orientation="vertical">
 
             <TextView
@@ -44,27 +41,27 @@
                 android:textColor="?attr/colorOnSurface"
                 android:textSize="18sp"
                 android:textStyle="bold"
-                tools:text="Nombre del Curso" />
+                tools:text="Cálculo II" />
 
             <TextView
-                android:id="@+id/txtCodigoCurso"
+                android:id="@+id/txtGrupoClase"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:alpha="0.8"
+                android:textColor="?attr/colorOnSurface"
+                android:textSize="14sp"
+                tools:text="Grupo A" />
+
+            <TextView
+                android:id="@+id/txtFacultadCurso"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.7"
                 android:textColor="?attr/colorOnSurface"
-                android:textSize="14sp"
-                tools:text="COD-123" />
+                android:textSize="13sp"
+                tools:text="Facultad de Ingeniería" />
         </LinearLayout>
-
-        <ImageView
-            android:id="@+id/icon_go"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            android:src="@drawable/ic_arrow_right"
-            app:tint="?attr/colorOnSurface" />
 
     </RelativeLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

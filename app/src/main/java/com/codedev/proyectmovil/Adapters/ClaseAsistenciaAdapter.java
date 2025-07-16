@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.codedev.proyectmovil.Models.ClaseModel;
@@ -15,25 +16,18 @@ import com.codedev.proyectmovil.R;
 
 import java.util.List;
 
-public class ClaseAdapter extends RecyclerView.Adapter<ClaseAdapter.ViewHolder> {
+public class ClaseAsistenciaAdapter extends RecyclerView.Adapter<ClaseAsistenciaAdapter.ViewHolder>{
     private Context context;
-    private List<ClaseRequest> clases;
-
-    private ClaseAdapter.OnItemClickListener listener;
+    private List<ClaseModel> clasesAs;
+    private ClaseAsistenciaAdapter.OnItemClickListener listener;
 
     public interface OnItemClickListener {
-        void onEditarClick(int id);
-
-        void onEliminarClick(ClaseRequest clase);
-
-        void onAdministrarClick(int id);
-
-        void onItemClick(int idcurso);
+        void onItemClick(ClaseModel claseModel);
     }
 
-    public ClaseAdapter(Context context, List<ClaseRequest> clases, ClaseAdapter.OnItemClickListener listener) {
+    public ClaseAsistenciaAdapter(Context context, List<ClaseModel> clasesAs, ClaseAsistenciaAdapter.OnItemClickListener listener) {
         this.context = context;
-        this.clases = clases;
+        this.clasesAs = clasesAs;
         this.listener = listener;
     }
 
@@ -51,31 +45,27 @@ public class ClaseAdapter extends RecyclerView.Adapter<ClaseAdapter.ViewHolder> 
             btnAdministrar = itemView.findViewById(R.id.btnAdministrarClase);
         }
 
-        public void bind(final ClaseRequest c, final ClaseAdapter.OnItemClickListener listener) {
-
-            txtNombre.setText(c.getNombreCurso());
-            txtFacultad.setText(c.getNombreFacultad());
-            txtGrupo.setText("Grupo " + c.getGrupo());
-
-            btnEditar.setOnClickListener(v -> listener.onEditarClick(c.getIdClase()));
-            btnEliminar.setOnClickListener(v -> listener.onEliminarClick(c));
-            btnAdministrar.setOnClickListener(v -> listener.onAdministrarClick(c.getIdClase()));
+        public void bind(final ClaseModel c, final ClaseAsistenciaAdapter.OnItemClickListener listener) {
+            txtNombre.setText(c.getGrupo());
+            txtFacultad.setText(c.getIdPeriodo());
+            itemView.setOnClickListener(v -> listener.onItemClick(c));
         }
     }
 
+    @NonNull
     @Override
-    public ClaseAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.clase_item, parent, false);
-        return new ClaseAdapter.ViewHolder(view);
+    public ClaseAsistenciaAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.clase_curso_item, parent, false);
+        return new ClaseAsistenciaAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(ClaseAdapter.ViewHolder holder, int position) {
-        holder.bind(clases.get(position), listener);
+    public void onBindViewHolder(@NonNull ClaseAsistenciaAdapter.ViewHolder holder, int position) {
+        holder.bind(clasesAs.get(position), listener);
     }
 
     @Override
     public int getItemCount() {
-        return clases.size();
+        return 0;
     }
 }

@@ -84,4 +84,22 @@ public class AsistenciaDAO {
     }
 
 
+    public List<ClaseModel> getClaseByCurso(int id){
+        SQLiteDatabase db = helper.getReadableDatabase();
+        List<ClaseModel> lista = new ArrayList<>();
+        String sql = "SELECT * FROM "+ClaseTable.TABLE_NAME+" WHERE "+ClaseTable.COL_CURSO_ID+" = ? AND estado = 1";
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(id)});
+        if (cursor.moveToFirst()) {
+            do {
+                ClaseModel cm = new ClaseModel();
+                cm.setIdCurso(cursor.getInt(cursor.getColumnIndexOrThrow(ClaseTable.COL_ID)));
+                cm.setGrupo(cursor.getString(cursor.getColumnIndexOrThrow(ClaseTable.COL_GRUPO)));
+                cm.setIdPeriodo(cursor.getInt(cursor.getColumnIndexOrThrow(ClaseTable.COL_PERIODO_ID)));
+                lista.add(cm);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return lista;
+    }
+
 }

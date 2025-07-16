@@ -68,11 +68,11 @@ public class ConfiguracionMenu extends Fragment {
         carFacultad.setOnClickListener(v->{
             cambiarFragmento(new FacultadesAll());
         });
-        carusuario.setOnClickListener(v -> {
-            cambiarFragmento(new UsuarioAll());
-        });
         carCurso.setOnClickListener( v ->{
             cambiarFragmento(new CursoFacultadesAll());
+        });
+        carusuario.setOnClickListener(v -> {
+            cambiarFragmento(new UsuarioAll());
         });
         carPeriodo.setOnClickListener( v ->{
             cambiarFragmento(new PeriodoAll());

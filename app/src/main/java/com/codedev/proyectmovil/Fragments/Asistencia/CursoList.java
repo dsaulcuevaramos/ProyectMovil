@@ -2,6 +2,7 @@ package com.codedev.proyectmovil.Fragments.Asistencia;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,10 +12,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.codedev.proyectmovil.Adapters.CursoClaseAdapter;
 import com.codedev.proyectmovil.Adapters.CursosAdapter;
 import com.codedev.proyectmovil.Helpers.Cursos.CursosDAO;
 import com.codedev.proyectmovil.Models.CursosModel;
 import com.codedev.proyectmovil.R;
+import com.google.android.material.appbar.MaterialToolbar;
 
 import java.util.List;
 
@@ -22,8 +25,9 @@ public class CursoList extends Fragment {
 
     CursosDAO cursosDAO;
     private RecyclerView recyclerACursos;
-    private CursosAdapter adapter;
+    private CursoClaseAdapter adapter;
     private List<CursosModel> listaACursos;
+    MaterialToolbar toolbar;
 
     @Nullable
     @Override
@@ -42,24 +46,22 @@ public class CursoList extends Fragment {
         recyclerACursos = view.findViewById(R.id.recyclerAsistenciaCursos);
         recyclerACursos.setLayoutManager(new LinearLayoutManager(requireContext()));
 
+        toolbar = view.findViewById(R.id.toolbar);
+        ((AppCompatActivity) requireActivity()).setSupportActionBar(toolbar);
+        setHasOptionsMenu(true);
+
         listaACursos = cursosDAO.getCursos();
 
-        adapter = new CursosAdapter(
+        adapter = new CursoClaseAdapter(
                 requireContext(),
                 listaACursos,
-                new CursosAdapter.OnItemClickListener() {
-                    @Override
-                    public void onEditarClick(CursosModel cursos) {
-                    }
-                    @Override
-                    public void onEliminarClick(CursosModel cursos) {
-                    }
+                new CursoClaseAdapter.OnItemClickListener() {
 
                     public void onItemClick(CursosModel cursos) {
-                        Fragment AsitenciasFragment = AsistenciaList.newInstance(cursos.getId());
+                        Fragment ClaseFragment = ClaseList.newInstance(cursos.getId());
                         requireActivity().getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.fragment_container, AsitenciasFragment)
+                                .replace(R.id.fragment_container, ClaseFragment)
                                 .addToBackStack(null)
                                 .commit();
                     }
