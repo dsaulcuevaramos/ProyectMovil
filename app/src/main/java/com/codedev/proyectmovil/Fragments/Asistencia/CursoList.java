@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.codedev.proyectmovil.Adapters.CursoClaseAdapter;
 import com.codedev.proyectmovil.Adapters.CursosAdapter;
 import com.codedev.proyectmovil.Helpers.Cursos.CursosDAO;
 import com.codedev.proyectmovil.Models.CursosModel;
@@ -24,10 +25,12 @@ public class CursoList extends Fragment {
 
     CursosDAO cursosDAO;
     private RecyclerView recyclerACursos;
-    private CursosAdapter adapter;
+    private CursoClaseAdapter adapter;
     private List<CursosModel> listaACursos;
     private static final int ROL_ALUMNO = 2;
     private int idRol;
+
+    public CursoList(){}
 
     @Nullable
     @Override
@@ -52,23 +55,17 @@ public class CursoList extends Fragment {
 
         listaACursos = cursosDAO.getCursos();
 
-        adapter = new CursosAdapter(
+        adapter = new CursoClaseAdapter(
                 requireContext(),
                 listaACursos,
-                canEdit,
-                new CursosAdapter.OnItemClickListener() {
-                    @Override
-                    public void onEditarClick(CursosModel cursos) {
-                    }
-                    @Override
-                    public void onEliminarClick(CursosModel cursos) {
-                    }
+                new CursoClaseAdapter.OnItemClickListener() {
+
 
                     public void onItemClick(CursosModel cursos) {
-                        Fragment AsitenciasFragment = AsistenciaList.newInstance(cursos.getId());
+                        Fragment ClaseFragment = ClaseList.newInstance(cursos.getId());
                         requireActivity().getSupportFragmentManager()
                                 .beginTransaction()
-                                .replace(R.id.fragment_container, AsitenciasFragment)
+                                .replace(R.id.fragment_container, ClaseFragment)
                                 .addToBackStack(null)
                                 .commit();
                     }

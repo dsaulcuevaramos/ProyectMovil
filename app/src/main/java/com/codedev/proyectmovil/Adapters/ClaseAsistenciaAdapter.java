@@ -25,29 +25,25 @@ public class ClaseAsistenciaAdapter extends RecyclerView.Adapter<ClaseAsistencia
         void onItemClick(ClaseModel claseModel);
     }
 
-    public ClaseAsistenciaAdapter(Context context, List<ClaseModel> clasesAs, ClaseAsistenciaAdapter.OnItemClickListener listener) {
+    public ClaseAsistenciaAdapter(Context context, List<ClaseModel> clasesAs, OnItemClickListener listener) {
         this.context = context;
         this.clasesAs = clasesAs;
         this.listener = listener;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView txtNombre, txtFacultad, txtGrupo;
-        ImageButton btnEditar, btnEliminar, btnAdministrar;
+        TextView txtPeriodo, txtGrupo;
+
 
         public ViewHolder(View itemView) {
             super(itemView);
-            txtNombre = itemView.findViewById(R.id.txtNombreCurso);
-            txtFacultad = itemView.findViewById(R.id.txtFacultadCurso);
-            txtGrupo = itemView.findViewById(R.id.txtGrupoClase);
-            btnEditar = itemView.findViewById(R.id.btnEditarClase);
-            btnEliminar = itemView.findViewById(R.id.btnEliminarClase);
-            btnAdministrar = itemView.findViewById(R.id.btnAdministrarClase);
+            txtPeriodo = itemView.findViewById(R.id.txtPeriodo);
+            txtGrupo = itemView.findViewById(R.id.txtNombreGrupo);
         }
 
-        public void bind(final ClaseModel c, final ClaseAsistenciaAdapter.OnItemClickListener listener) {
-            txtNombre.setText(c.getGrupo());
-            txtFacultad.setText(c.getIdPeriodo());
+        public void bind(final ClaseModel c, final OnItemClickListener listener) {
+            txtPeriodo.setText(c.getIdPeriodo());
+            txtGrupo.setText(c.getGrupo());
             itemView.setOnClickListener(v -> listener.onItemClick(c));
         }
     }

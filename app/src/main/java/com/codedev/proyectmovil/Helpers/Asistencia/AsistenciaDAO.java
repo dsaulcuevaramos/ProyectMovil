@@ -87,12 +87,16 @@ public class AsistenciaDAO {
     public List<ClaseModel> getClaseByCurso(int id){
         SQLiteDatabase db = helper.getReadableDatabase();
         List<ClaseModel> lista = new ArrayList<>();
-        String sql = "SELECT * FROM "+ClaseTable.TABLE_NAME+" WHERE "+ClaseTable.COL_CURSO_ID+" = ? AND estado = 1";
+
+        String sql = "SELECT c.grupo AS grupo, c.periodo_id AS periodo FROM Clase c " +
+                "JOIN Cursos cur ON c.curso_id = cur.id " +
+                "WHERE "+ClaseTable.COL_CURSO_ID+" = ? AND "+ClaseTable.COL_ESTADO+" = 1";
         Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(id)});
         if (cursor.moveToFirst()) {
             do {
                 ClaseModel cm = new ClaseModel();
-                cm.setIdCurso(cursor.getInt(cursor.getColumnIndexOrThrow(ClaseTable.COL_ID)));
+                cm.setId(cursor.getInt(cursor.getColumnIndexOrThrow(ClaseTable.COL_ID)));
+                cm.setIdCurso(cursor.getInt(cursor.getColumnIndexOrThrow(ClaseTable.COL_CURSO_ID)));
                 cm.setGrupo(cursor.getString(cursor.getColumnIndexOrThrow(ClaseTable.COL_GRUPO)));
                 cm.setIdPeriodo(cursor.getInt(cursor.getColumnIndexOrThrow(ClaseTable.COL_PERIODO_ID)));
                 lista.add(cm);

@@ -35,7 +35,7 @@
             android:orientation="vertical">
 
             <TextView
-                android:id="@+id/txtNombreCurso"
+                android:id="@+id/txtNombreGrupo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="?attr/colorOnSurface"
@@ -44,7 +44,7 @@
                 tools:text="Cálculo II" />
 
             <TextView
-                android:id="@+id/txtGrupoClase"
+                android:id="@+id/txtPeriodo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:alpha="0.8"

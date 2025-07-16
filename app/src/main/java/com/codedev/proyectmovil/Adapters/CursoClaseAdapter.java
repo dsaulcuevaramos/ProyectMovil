@@ -23,7 +23,7 @@ public class CursoClaseAdapter extends RecyclerView.Adapter<CursoClaseAdapter.Vi
     public interface OnItemClickListener {
         void onItemClick(CursosModel curso);
     }
-    public CursoClaseAdapter(Context context, List<CursosModel> cursos, CursoClaseAdapter.OnItemClickListener listener) {
+    public CursoClaseAdapter(Context context, List<CursosModel> cursos, OnItemClickListener listener) {
         this.context = context;
         this.cursos = cursos;
         this.listener = listener;

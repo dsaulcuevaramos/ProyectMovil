@@ -65,7 +65,7 @@ public class ClaseList extends Fragment {
 
             @Override
             public void onItemClick(ClaseModel claseModel) {
-                Fragment AsitenciasFragment = AsistenciaList.newInstance(claseModel.getIdCurso());
+                Fragment AsitenciasFragment = AsistenciaList.newInstance(claseModel.getId());
                 requireActivity().getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, AsitenciasFragment)
