@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/navigation_asistencia"
+        android:icon="@drawable/ic_asistencia"
+        android:title="Asistencia" />
+
+    <item
+        android:id="@+id/navigation_profesor"
+        android:icon="@drawable/ic_person_book"
+        android:title="Profesor" />
+
+    <item
+        android:id="@+id/navigation_clase"
+        android:icon="@drawable/ic_school"
+        android:title="Mis clases" />
+
+    <item
+        android:id="@+id/navigation_perfil"
+        android:icon="@drawable/ic_perfil"
+        android:title="Yo" />
+
+    <item
+        android:id="@+id/navigation_menu"
+        android:icon="@drawable/ic_menu"
+        android:title="Menu" />
+</menu>
