@@ -104,4 +104,28 @@ public class AsistenciaDAO {
         return lista;
     }
 
+    public List<AsistenciaModel> getAsistenciasPorClase(int idClase) {
+        SQLiteDatabase db = helper.getReadableDatabase();
+        List<AsistenciaModel> lista = new ArrayList<>();
+
+        String sql = "SELECT DISTINCT A.* FROM Asistencia A " +
+                "JOIN Detalle_asistencia DA ON A.id = DA.asistencia_id " +
+                "JOIN Detalle_clase DC ON DA.detaleclase_id = DC.id " +
+                "WHERE DC.clase_id = ? AND A.estado = 1";
+
+        Cursor cursor = db.rawQuery(sql, new String[]{String.valueOf(idClase)});
+        if (cursor.moveToFirst()) {
+            do {
+                AsistenciaModel am = new AsistenciaModel();
+                am.setIdAsitencia(cursor.getInt(cursor.getColumnIndexOrThrow("id")));
+                am.setFecha(cursor.getString(cursor.getColumnIndexOrThrow("fecha")));
+                am.setActivo(cursor.getInt(cursor.getColumnIndexOrThrow("activo")));
+                am.setEstado(cursor.getInt(cursor.getColumnIndexOrThrow("estado")));
+                lista.add(am);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return lista;
+    }
+
 }

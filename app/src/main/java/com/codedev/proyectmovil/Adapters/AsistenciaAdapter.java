@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.codedev.proyectmovil.Models.AsistenciaModel;
 import com.codedev.proyectmovil.Models.CursosModel;
+import com.codedev.proyectmovil.Models.Requests.DetalleAsistenciaRequest;
 import com.codedev.proyectmovil.R;
 
 import java.util.List;
@@ -40,8 +41,7 @@ public class AsistenciaAdapter extends RecyclerView.Adapter<AsistenciaAdapter.Vi
 
         public ViewHolder(View itemView) {
             super(itemView);
-            txtFecha = itemView.findViewById(R.id.txtNombreCompleto);
-            txtActivo = itemView.findViewById(R.id.txtCodigo);
+            txtFecha = itemView.findViewById(R.id.txtFechaAsistencia);
             btnEditar = itemView.findViewById(R.id.btnEditar);
             btnEliminar = itemView.findViewById(R.id.btnEliminar);
         }
@@ -49,8 +49,6 @@ public class AsistenciaAdapter extends RecyclerView.Adapter<AsistenciaAdapter.Vi
         public void bind(final AsistenciaModel am, final OnItemClickListener listener) {
             txtFecha.setText(am.getFecha());
             txtActivo.setText(am.getActivo());
-            btnEditar.setOnClickListener(v -> listener.onEditarClick(am));
-            btnEliminar.setOnClickListener(v -> listener.onEliminarClick(am));
         }
     }
 
@@ -62,7 +60,7 @@ public class AsistenciaAdapter extends RecyclerView.Adapter<AsistenciaAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(AsistenciaAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull AsistenciaAdapter.ViewHolder holder, int position) {
         holder.bind(asistencia.get(position), listener);
     }
 

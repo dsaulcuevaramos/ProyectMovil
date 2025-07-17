@@ -17,6 +17,7 @@ import com.codedev.proyectmovil.Adapters.AsistenciaAdapter;
 import com.codedev.proyectmovil.Helpers.Asistencia.AsistenciaDAO;
 import com.codedev.proyectmovil.Models.AsistenciaModel;
 import com.codedev.proyectmovil.Models.CursosModel;
+import com.codedev.proyectmovil.Models.Requests.DetalleAsistenciaRequest;
 import com.codedev.proyectmovil.R;
 
 import java.util.List;
@@ -26,15 +27,15 @@ public class AsistenciaList extends Fragment {
     AsistenciaDAO asistenciaDAO;
     private RecyclerView recyclerAsistencia;
     private AsistenciaAdapter adapter;
-    private List<AsistenciaModel> listaAsistencia;
-    private int idCurso =-1;
+    private List<AsistenciaModel> listaAsistencias;
+    private int idClase =-1;
 
     public AsistenciaList(){}
 
-    public static AsistenciaList newInstance(int idCurso) {
+    public static AsistenciaList newInstance(int idClase) {
         AsistenciaList fragment = new AsistenciaList();
         Bundle args = new Bundle();
-        args.putInt("idCurso", idCurso);
+        args.putInt("idClase", idClase);
         fragment.setArguments(args);
         return fragment;
     }
@@ -52,27 +53,22 @@ public class AsistenciaList extends Fragment {
         super.onCreate(savedInstanceState);
 
         asistenciaDAO = new AsistenciaDAO(requireContext());
-        recyclerAsistencia = view.findViewById(R.id.recyclerCursos);
+        recyclerAsistencia = view.findViewById(R.id.recyclerAsistencias);
         recyclerAsistencia.setLayoutManager(new LinearLayoutManager(requireContext()));
 
         if (getArguments() != null) {
-            idCurso = getArguments().getInt("idCurso", -1);
+            idClase = getArguments().getInt("idClase", -1);
         }
 
-        listaAsistencia = asistenciaDAO.getAsistenciaByCurso(idCurso);
-        adapter = new AsistenciaAdapter(getContext(), listaAsistencia, new AsistenciaAdapter.OnItemClickListener() {
+        listaAsistencias = asistenciaDAO.getAsistenciasPorClase(idClase);
+        adapter = new AsistenciaAdapter(getContext(), listaAsistencias, new AsistenciaAdapter.OnItemClickListener() {
 
             @Override
             public void onEditarClick(AsistenciaModel asistenciaModel) {
-               // mostrarDialogEditar(cursoModel);
             }
 
             @Override
             public void onEliminarClick(AsistenciaModel asistenciaModel) {
-                new AlertDialog.Builder(requireContext()).setTitle("¿Eliminar curso?").setMessage("¿Estás seguro de que quieres eliminar a " + asistenciaModel.getFecha()+ "?").setPositiveButton("Sí", (dialog, which) -> {
-                    //eliminarCursoConRevertir(cursoModel);
-                    //recargarLista();
-                }).setNegativeButton("Cancelar", null).show();
             }
 
             @Override

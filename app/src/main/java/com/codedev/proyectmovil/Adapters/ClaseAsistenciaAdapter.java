@@ -42,8 +42,8 @@ public class ClaseAsistenciaAdapter extends RecyclerView.Adapter<ClaseAsistencia
         }
 
         public void bind(final ClaseModel c, final OnItemClickListener listener) {
-            txtPeriodo.setText(c.getIdPeriodo());
-            txtGrupo.setText(c.getGrupo());
+            txtPeriodo.setText(String.valueOf(c.getIdPeriodo()));
+            txtGrupo.setText("Grupo " + c.getGrupo());
             itemView.setOnClickListener(v -> listener.onItemClick(c));
         }
     }
